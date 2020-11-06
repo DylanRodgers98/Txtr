@@ -20,7 +20,7 @@ class CreatePostsTable extends Migration
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
             $table->foreignId('parent_post_id')
-                  ->nullable() // a Post that has a non-null reference to a parent Post is a 'comment'
+                  ->nullable() // a Post that has a non-null reference to a parent Post is a 'reply'
                   ->constrained('posts')
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
