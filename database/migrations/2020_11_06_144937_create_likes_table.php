@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreatePostsTable extends Migration
+class CreateLikesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,16 @@ class CreatePostsTable extends Migration
      */
     public function up()
     {
-        Schema::create('posts', function (Blueprint $table) {
-            $table->id();
+        Schema::create('likes', function (Blueprint $table) {
+            $table->primary(['user_id', 'post_id']);
             $table->foreignId('user_id')
                   ->constrained()
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->foreignId('parent_post_id')
-                  ->nullable() // a Post that has a non-null reference to a parent Post is a 'reply'
-                  ->constrained('posts')
+            $table->foreignId('post_id')
+                  ->constrained()
                   ->onDelete('cascade')
                   ->onUpdate('cascade');
-            $table->string('body', 140);
             $table->timestamps();
         });
     }
@@ -36,6 +34,6 @@ class CreatePostsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('posts');
+        Schema::dropIfExists('likes');
     }
 }
