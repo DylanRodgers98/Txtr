@@ -15,15 +15,9 @@ class CreatePostsTable extends Migration
     {
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')
-                  ->constrained()
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
-            $table->foreignId('parent_post_id')
-                  ->nullable() // a Post that has a non-null reference to a parent Post is a 'reply'
-                  ->constrained('posts')
-                  ->onDelete('cascade')
-                  ->onUpdate('cascade');
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            // nullable because a Post with a null parent_post_id is a root Post, or is a 'reply' to another Post if non-null
+            $table->foreignId('parent_post_id')->nullable()->constrained('posts')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('body', 140);
             $table->timestamps();
         });
