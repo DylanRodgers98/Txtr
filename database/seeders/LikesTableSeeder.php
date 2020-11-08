@@ -15,10 +15,9 @@ class LikesTableSeeder extends Seeder
      */
     public function run()
     {
-        $iterations = rand(10, 50);
-        for ($i = 0; $i < $iterations; $i++) {
-            $postId = Post::inRandomOrder()->first()->id;
-            User::inRandomOrder()->first()->likedPosts()->syncWithoutDetaching($postId);
+        foreach (Post::get() as $post) {
+            $randomUserIDs = User::inRandomOrder()->limit(rand(0, 10))->pluck('id');
+            $post->likedBy()->attach($randomUserIDs);
         }
     }
 }

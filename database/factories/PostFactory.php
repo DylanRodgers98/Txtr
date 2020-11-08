@@ -24,8 +24,8 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::inRandomOrder()->first()->id,
-            'parent_post_id' => $this->faker->boolean() ? Post::inRandomOrder()->first()->id : null,
+            'user_id' => User::inRandomOrder()->value('id'),
+            'parent_post_id' => $this->faker->boolean() ? Post::inRandomOrder()->value('id') : null,
             'body' => $this->faker->realText(140)
         ];
     }
