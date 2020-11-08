@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateFollowersTable extends Migration
+class CreateUserLikedPostTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateFollowersTable extends Migration
      */
     public function up()
     {
-        Schema::create('followers', function (Blueprint $table) {
-            $table->primary(['user_id', 'follower_id']);
+        Schema::create('user_liked_post', function (Blueprint $table) {
+            $table->primary(['user_id', 'post_id']);
             $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('follower_id')->constrained('users')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('post_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }
@@ -28,6 +28,6 @@ class CreateFollowersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('followers');
+        Schema::dropIfExists('user_liked_post');
     }
 }

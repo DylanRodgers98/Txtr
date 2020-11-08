@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class FollowersTableSeeder extends Seeder
+class UserFollowerTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.

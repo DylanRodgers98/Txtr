@@ -6,7 +6,7 @@ use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class LikesTableSeeder extends Seeder
+class UserLikedPostTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
