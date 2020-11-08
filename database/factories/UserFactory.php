@@ -8,8 +8,6 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 
 class UserFactory extends Factory
 {
-    private const CHANCE_OF_VERIFIED_EMAIL = 90;
-
     /**
      * The name of the factory's corresponding model.
      *
