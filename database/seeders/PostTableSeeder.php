@@ -16,10 +16,22 @@ class PostTableSeeder extends Seeder
     public function run()
     {
         $post = new Post();
-        $post->user_id = User::where('name', 'Dylan Rodgers')->value('id');
+        $post->user_id = User::where('username', 'DylanRodgers98')->value('id');
         $post->body = "This is my first post!";
         $post->save();
 
-        Post::factory()->count(50)->create();
+        /**
+         * Using a for-loop rather than count(50) on factory because create()
+         * creates the required amount of records using the definition in the
+         * factory and THEN persists them to the database. This means that
+         * within the factory the parent_post_id will only ever be the id of
+         * $post created above, as it will be the only Post persisted in the
+         * database at the time of creation. By creating one Post at a time,
+         * its id then becomes available for future Posts created by the
+         * factory to reference as a foreign key for parent_post_id.
+         */
+        for ($i = 0; $i < 50; $i++) {
+            Post::factory()->createOne();
+        }
     }
 }

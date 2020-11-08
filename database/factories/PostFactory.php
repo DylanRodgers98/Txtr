@@ -5,7 +5,7 @@ namespace Database\Factories;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
-use Illuminate\Support\Facades\DB;
+use App\Helpers;
 
 class PostFactory extends Factory
 {
@@ -25,7 +25,7 @@ class PostFactory extends Factory
     {
         return [
             'user_id' => User::inRandomOrder()->value('id'),
-            'parent_post_id' => $this->faker->boolean() ? Post::inRandomOrder()->value('id') : null,
+            'parent_post_id' => Helpers::possiblyNull(Post::inRandomOrder()->value('id')),
             'body' => $this->faker->realText(140)
         ];
     }
