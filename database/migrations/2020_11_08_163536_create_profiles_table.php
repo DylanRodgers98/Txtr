@@ -20,6 +20,8 @@ class CreateProfilesTable extends Migration
             $table->string('bio')->nullable();
             $table->string('location')->nullable();
             $table->string('website_url')->nullable();
+            $table->string('profile_img_path')->nullable();
+            $table->string('banner_img_path')->nullable();
             $table->timestamps();
         });
     }
