@@ -24,7 +24,7 @@
                         @if ($user->id == old('user_id'))
                             selected="selected"
                         @endif
-                    >{{ $user->profile->display_name }}</option>
+                    >{{ $user->profile->display_name ?? $user->username }}</option>
                 @endforeach
             </select>
         </p>
@@ -36,7 +36,7 @@
                         @if ($post->id == old('parent_post_id'))
                             selected="selected"
                         @endif
-                    >{{ $post->user->profile->display_name }}: {{ $post->body }}</option>
+                    >{{ $post->user->profile->display_name ?? $user->username }}: {{ $post->body }}</option>
                 @endforeach
             </select>
         </p>

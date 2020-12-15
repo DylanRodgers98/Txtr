@@ -1,16 +1,16 @@
 @extends('layouts.app')
 
-@section('title', $post->user->profile->display_name . "'s Post")
+@section('title', $post->user->profile->display_name ?? $user->username . "'s Post")
 
 @section('content')
     <ul>
-        <li>User: <a href="{{ route('users.show', ['user' => $post->user]) }}">{{ $post->user->profile->display_name }}</a></li>
+        <li>User: <a href="{{ route('users.show', ['user' => $post->user]) }}">{{ $post->user->profile->display_name ?? $user->username }}</a></li>
         @if ($post->parent_post_id)
             <li>Reply to:
                 <ul>
                     <li>
                         <a href="{{ route('users.show', ['user' => $post->user_id]) }}">
-                            {{ $post->user->profile->display_name }}</a>:
+                            {{ $post->user->profile->display_name ?? $user->username }}</a>:
                         <a href="{{ route('posts.show', ['post' => $post->parent_post_id]) }}">
                             {{ $post->parentPost->body }}</a>
                     </li>
@@ -24,7 +24,7 @@
                     @foreach ($post->replies as $reply)
                         <li>
                             <a href="{{ route('users.show', ['user' => $reply->user_id]) }}">
-                                {{ $reply->user->profile->display_name }}</a>:
+                                {{ $reply->user->profile->display_name ?? $user->username }}</a>:
                             <a href="{{ route('posts.show', ['post' => $reply->id]) }}">
                                 {{ $reply->body }}</a>
                         </li>

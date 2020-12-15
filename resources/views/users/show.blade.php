@@ -1,15 +1,18 @@
 @extends('layouts.app')
 
-@section('title', $user->profile->display_name)
+@section('title', $user->profile->display_name ?? $user->username)
 
 @section('content')
     @if ($user->profile->banner_img_path)
         <img src="{{ $user->profile->banner_img_path }}" alt="{{ $user->profile->display_name }}'s Banner" width="320" height="240">
     @endif
-    <h3>{{ $user->profile->display_name }}</h3>
-    @if ($user->profile->profile_img_path)
-        <img src="{{ $user->profile->profile_img_path }}" alt="{{ $user->profile->display_name }}'s Profile Picture" width="200" height="200">
-    @endif
+    <h3>{{ $user->profile->display_name ?? $user->username }}</h3>
+    <i><b>{{ '@' . $user->username }}</b></i>
+    <div>
+        @if ($user->profile->profile_img_path)
+            <img src="{{ $user->profile->profile_img_path }}" alt="{{ $user->profile->display_name }}'s Profile Picture" width="200" height="200">
+        @endif
+    </div>
     @if ($user->profile->bio)
         <p>Bio: {{ $user->profile->bio }}</p>
     @endif
