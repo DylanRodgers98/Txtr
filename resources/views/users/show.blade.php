@@ -3,7 +3,13 @@
 @section('title', $user->profile->display_name)
 
 @section('content')
+    @if ($user->profile->banner_img_path)
+        <img src="{{ $user->profile->banner_img_path }}" alt="{{ $user->profile->display_name }}'s Banner" width="320" height="240">
+    @endif
     <h3>{{ $user->profile->display_name }}</h3>
+    @if ($user->profile->profile_img_path)
+        <img src="{{ $user->profile->profile_img_path }}" alt="{{ $user->profile->display_name }}'s Profile Picture" width="200" height="200">
+    @endif
     @if ($user->profile->bio)
         <p>Bio: {{ $user->profile->bio }}</p>
     @endif

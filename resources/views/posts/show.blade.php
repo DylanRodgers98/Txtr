@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', $post->user->profile->display_name . '\'s Post')
+@section('title', $post->user->profile->display_name . "'s Post")
 
 @section('content')
     <ul>
