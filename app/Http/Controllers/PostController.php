@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::all();
+        $posts = Post::orderBy('created_at', 'desc')->get();
         return view('posts.index', ['posts' => $posts]);
     }
 
@@ -25,7 +25,7 @@ class PostController extends Controller
      */
     public function create()
     {
-        //
+        return view('posts.create');
     }
 
     /**
@@ -36,7 +36,20 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validatedData = $request->validate([
+            'user_id' => 'required|integer',
+            'parent_post_id' => 'nullable|integer',
+            'body' => 'required|string|max:140'
+        ]);
+
+        $post = new Post();
+        $post->user_id = $validatedData['user_id'];
+        $post->parent_post_id = $validatedData['parent_post_id'];
+        $post->body = $validatedData['body'];
+        $post->save();
+
+        session()->flash('message', 'Post created!');
+        return redirect()->route('posts.index');
     }
 
     /**
