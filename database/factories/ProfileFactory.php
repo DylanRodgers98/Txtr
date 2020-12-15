@@ -23,7 +23,6 @@ class ProfileFactory extends Factory
     public function definition()
     {
         return [
-            'user_id' => User::factory()->create()->id,
             'display_name' => $this->faker->name,
             'bio' => FactoryHelpers::possiblyNull($this->faker->realText),
             'location' => FactoryHelpers::possiblyNull($this->faker->city . ", " . $this->faker->country),

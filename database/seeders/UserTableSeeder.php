@@ -6,7 +6,7 @@ use App\Models\Profile;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class ProfileTableSeeder extends Seeder
+class UserTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -30,6 +30,9 @@ class ProfileTableSeeder extends Seeder
         $profile->website_url = "https://www.github.com/DylanRodgers98";
         $profile->save();
 
-        Profile::factory()->count(10)->create();
+        User::factory()
+            ->hasProfile()
+            ->count(10)
+            ->create();
     }
 }
