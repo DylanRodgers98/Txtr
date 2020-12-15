@@ -32,8 +32,8 @@
             <select name="parent_post_id">
                 <option value="" disabled selected hidden>
                 @foreach ($posts as $post)
-                    <option value="{{ $post }}"
-                        @if ($user->id == old('parent_post_id'))
+                    <option value="{{ $post->id }}"
+                        @if ($post->id == old('parent_post_id'))
                             selected="selected"
                         @endif
                     >{{ $post->user->profile->display_name }}: {{ $post->body }}</option>

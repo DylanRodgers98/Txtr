@@ -6,7 +6,16 @@
     <ul>
         <li>User: <a href="{{ route('users.show', ['user' => $post->user]) }}">{{ $post->user->profile->display_name }}</a></li>
         @if ($post->parent_post_id)
-            <li>Reply to: <a href="{{ route('posts.show', ['post' => $post->parent_post_id]) }}">{{ $post->parentPost->body }}</a></li>
+            <li>Reply to:
+                <ul>
+                    <li>
+                        <a href="{{ route('users.show', ['user' => $post->user_id]) }}">
+                            {{ $post->user->profile->display_name }}</a>:
+                        <a href="{{ route('posts.show', ['post' => $post->parent_post_id]) }}">
+                            {{ $post->parentPost->body }}</a>
+                    </li>
+                </ul>
+            </li>
         @endif
         <li>Body: {{ $post->body }}</li>
         @if ($post->replies->count() > 0)
@@ -14,9 +23,10 @@
                 <ul>
                     @foreach ($post->replies as $reply)
                         <li>
+                            <a href="{{ route('users.show', ['user' => $reply->user_id]) }}">
+                                {{ $reply->user->profile->display_name }}</a>:
                             <a href="{{ route('posts.show', ['post' => $reply->id]) }}">
-                                {{ $reply->user->profile->display_name }}: {{ $reply->body }}
-                            </a>
+                                {{ $reply->body }}</a>
                         </li>
                     @endforeach
                 </ul>
