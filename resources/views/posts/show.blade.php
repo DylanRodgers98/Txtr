@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
-@section('title', $post->user->profile->display_name . '\'s post')
+@section('title', $post->user->profile->display_name . '\'s Post')
 
 @section('content')
     <ul>
-        <li>User: {{ $post->user->profile->display_name }}</li>
+        <li>User: <a href="{{ route('users.show', ['user' => $post->user]) }}">{{ $post->user->profile->display_name }}</a></li>
         @if ($post->parent_post_id)
             <li>Reply to: <a href="{{ route('posts.show', ['post' => $post->parent_post_id]) }}">{{ $post->parentPost->body }}</a></li>
         @endif
@@ -24,7 +24,7 @@
         @endif
     </ul>
 
-    <form method="POST" action="{{ route('posts.destroy', ['post' => $post->id]) }}">
+    <form method="POST" action="{{ route('posts.destroy', ['post' => $post]) }}">
         @csrf
         @method('DELETE')
         <button type="submit">Delete Post</button>
