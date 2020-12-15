@@ -1,12 +1,15 @@
 @extends('layouts.app')
 
-@section('title', 'Home')
+@section('title', 'All Posts')
 
 @section('content')
-    <h3>All posts:</h3>
     <ul>
         @foreach ($posts as $post)
-            <li>{{ $post->body }}</li>
+            <li>
+                <a href="{{ route('posts.show', ['id' => $post->id]) }}">
+                    {{ $post->user->profile->display_name }}: {{ $post->body }}
+                </a>
+            </li>
         @endforeach
     </ul>
 @endsection

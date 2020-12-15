@@ -5,7 +5,7 @@
     </head>
 
     <body>
-        <h1>txtr</h1>
+        <h1>txtr | @yield('title')</h1>
 
         <div>
             @yield('content')
