@@ -55,8 +55,8 @@ class PostController extends Controller
         $post->body = $validatedData['body'];
         $post->save();
 
-        session()->flash('message', 'Post created!');
-        return redirect()->route('posts.index');
+        return redirect()->route('posts.index')
+            ->with('message', 'Post created!');
     }
 
     /**
@@ -102,6 +102,8 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Post::findOrFail($id)->delete();
+        return redirect()->route('posts.index')
+            ->with('message', 'Post deleted.');
     }
 }
