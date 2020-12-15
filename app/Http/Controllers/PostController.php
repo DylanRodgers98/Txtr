@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Post;
+use App\Models\User;
 
 class PostController extends Controller
 {
@@ -25,7 +26,13 @@ class PostController extends Controller
      */
     public function create()
     {
-        return view('posts.create');
+        $users = User::get();
+        $posts = Post::orderBy('created_at', 'desc')->get();
+
+        return view('posts.create', [
+            'users' => $users,
+            'posts' => $posts
+        ]);
     }
 
     /**
@@ -44,7 +51,7 @@ class PostController extends Controller
 
         $post = new Post();
         $post->user_id = $validatedData['user_id'];
-        $post->parent_post_id = $validatedData['parent_post_id'];
+        $post->parent_post_id = $validatedData['parent_post_id'] ?? null;
         $post->body = $validatedData['body'];
         $post->save();
 
