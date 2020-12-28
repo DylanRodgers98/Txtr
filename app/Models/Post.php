@@ -33,6 +33,17 @@ class Post extends Model
         return $this->belongsTo(Post::class);
     }
 
+    public function parentPosts()
+    {
+        $posts = array();
+        $currentPost = $this;
+        while ($currentPost->parentPost) {
+            $currentPost = $currentPost->parentPost;
+            $posts[] = $currentPost;
+        }
+        return array_reverse($posts);
+    }
+
     public function likedBy()
     {
         return $this->belongsToMany(User::class, 'user_liked_post');
