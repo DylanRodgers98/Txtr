@@ -21,25 +21,14 @@ class PostController extends Controller
      */
     public function index()
     {
-        $followedUserIds = Auth::user()->following->pluck('id');
-        $posts = Post::whereIn('user_id', $followedUserIds)
+        $user = Auth::user();
+        $userIds = array($user->id, $user->following->pluck('id'));
+        $posts = Post::whereIn('user_id', $userIds)
             ->orderBy('created_at', 'desc')
             ->get();
-        return view('home', ['posts' => $posts]);
-    }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        $users = User::get();
-        $posts = Post::orderBy('created_at', 'desc')->get();
-
-        return view('posts.create', [
-            'users' => $users,
+        return view('home', [
+            'user' => $user,
             'posts' => $posts
         ]);
     }
@@ -64,7 +53,7 @@ class PostController extends Controller
         $post->body = $validatedData['body'];
         $post->save();
 
-        return redirect()->route('posts.index')
+        return redirect()->route('home')
             ->with('message', 'Post created!');
     }
 

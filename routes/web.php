@@ -23,8 +23,6 @@ require __DIR__.'/auth.php';
 // this will need reinstating with controller method & view instead of redirect when admin user role created
 Route::get('posts', fn() => redirect()->route('home'))->name('posts.index');
 
-Route::get('posts/create', 'PostController@create')->name('posts.create');
-
 Route::post('posts', 'PostController@store')->name('posts.store');
 
 Route::get('posts/{post}', 'PostController@show')->name('posts.show');
