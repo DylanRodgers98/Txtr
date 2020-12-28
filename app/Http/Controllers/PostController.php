@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class PostController extends Controller
 {
@@ -20,8 +21,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::orderBy('created_at', 'desc')->get();
-        return view('posts.index', ['posts' => $posts]);
+        $followedUserIds = Auth::user()->following->pluck('id');
+        $posts = Post::whereIn('user_id', $followedUserIds)
+            ->orderBy('created_at', 'desc')
+            ->get();
+        return view('home', ['posts' => $posts]);
     }
 
     /**

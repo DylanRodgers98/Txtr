@@ -13,20 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+Route::get('/', 'PostController@index')->name('home');
 
 require __DIR__.'/auth.php';
 
 /**
  * Post routes
  */
-Route::get('posts', 'PostController@index')->name('posts.index');
+// this will need reinstating with controller method & view instead of redirect when admin user role created
+Route::get('posts', fn() => redirect()->route('home'))->name('posts.index');
 
 Route::get('posts/create', 'PostController@create')->name('posts.create');
 
@@ -46,5 +41,9 @@ Route::get('users/create', 'UserController@create')->name('users.create');
 Route::post('users', 'UserController@store')->name('users.store');
 
 Route::get('users/{user}', 'UserController@show')->name('users.show');
+
+Route::get('users/{user}/following', 'UserController@indexFollowing')->name('users.indexFollowing');
+
+Route::get('users/{user}/followers', 'UserController@indexFollowers')->name('users.indexFollowers');
 
 Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
