@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -51,7 +52,25 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', ['user' => $user]);
+        $authUserId = Auth::id();
+        $isAuthUser = $authUserId == $user->id;
+        $isAuthUserFollowing = in_array($authUserId, $user->followers->pluck('id')->all());
+
+        return view('users.show', [
+            'user' => $user,
+            'isAuthUser' => $isAuthUser,
+            'isAuthUserFollowing' => $isAuthUserFollowing
+        ]);
+    }
+
+    public function indexFollowing(User $user)
+    {
+        return view('users.indexFollowing', ['user' => $user]);
+    }
+
+    public function indexFollowers(User $user)
+    {
+        return view('users.indexFollowers', ['user' => $user]);
     }
 
     /**
