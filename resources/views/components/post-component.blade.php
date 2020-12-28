@@ -21,4 +21,6 @@
             {{ " · " }}
         <a href="">{{ "Like " . $post->likedBy->count() }}</a>
     </div>
+
+    {{ $slot }}
 </x-box>

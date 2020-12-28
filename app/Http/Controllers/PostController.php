@@ -53,7 +53,13 @@ class PostController extends Controller
         $post->body = $validatedData['body'];
         $post->save();
 
-        return redirect()->route('home')
+        if (isset($validatedData['parent_post_id'])) {
+            return redirect()
+                ->route('posts.show', ['post' => $validatedData['parent_post_id']])
+                ->with('message', 'Reply created!');
+        }
+        return redirect()
+            ->route('home')
             ->with('message', 'Post created!');
     }
 

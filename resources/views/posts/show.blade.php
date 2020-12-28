@@ -6,7 +6,19 @@
             <x-post-component :post="$parentPost"/>
         @endforeach
 
-        <x-post-component :post="$post"/>
+        <x-post-component :post="$post">
+            <div class="py-2">
+                <form method="POST" action="{{ route('posts.store') }}">
+                    @csrf
+                    <input type="hidden" name="user_id" value="{{ Auth::id() }}">
+                    <input type="hidden" name="parent_post_id" value="{{ $post->id }}">
+                    <input class="w-full rounded-full" type="text" name="body"
+                        placeholder="{{ "Reply to @" . $post->user->username . "..." }}" value="{{ old('body') }}">
+                    <input class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 rounded-full cursor-pointer"
+                        type="submit" value="Reply">
+                </form>
+            </div>
+        </x-post-component>
 
         @foreach ($post->replies as $reply)
             <x-post-component :post="$reply"/>
