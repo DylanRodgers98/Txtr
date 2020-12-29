@@ -17,11 +17,11 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
     </head>
     <body class="font-sans antialiased">
-        <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+        @include('layouts.navigation')
 
         <div id="root" class="min-h-screen bg-gray-100">
-            @include('layouts.navigation')
-
             <!-- Page Content -->
             <main>
                 @if (session('message'))
