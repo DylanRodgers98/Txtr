@@ -12,10 +12,14 @@
                     @csrf
                     <input type="hidden" name="userId" value="{{ Auth::id() }}">
                     <input type="hidden" name="parentPostId" value="{{ $post->id }}">
-                    <input class="w-full rounded-full" type="text" name="postBody"
-                        placeholder="{{ "Reply to @" . $post->user->username . "..." }}" value="{{ old('postBody') }}">
-                    <input class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 my-2 rounded-full cursor-pointer"
-                        type="submit" value="Reply">
+                    <input id="postBody" class="w-full rounded-full" type="text" name="postBody"
+                        placeholder="{{ "Reply to @" . $post->user->username . "..." }}" value="{{ old('postBody') }}"
+                        @keyup='updateCharCount()' @change='updateCharCount()'>
+                    <div class="float-right">
+                        Characters remaining: @{{ postCharsRemaining }}
+                        <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
+                            type="submit" value="Post">
+                    </div>
                 </form>
             </div>
         </x-post-component>
@@ -24,4 +28,23 @@
             <x-post-component :post="$reply"/>
         @endforeach
     </div>
+
+    <script>
+        var app = new Vue({
+            el: "#root",
+            data: {
+                maxPostChars: 140,
+                postCharsRemaining: 140
+            },
+            methods: {
+                updateCharCount: function() {
+                    const postBodyLength = document.getElementById('postBody').value.length;
+                    this.postCharsRemaining = this.maxPostChars - postBodyLength;
+                }
+            },
+            beforeMount() {
+                this.updateCharCount();
+            }
+        });
+    </script>
 </x-app-layout>
