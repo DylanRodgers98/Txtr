@@ -21,6 +21,13 @@
             {{ " · " }}
         <a href="">{{ "Like " . $post->likedBy->count() }}</a>
     </div>
+    @if ($post->image)
+        <div class="pt-2">
+            <a href="{{ Storage::url($post->image->url) }}">
+                <img src="{{ Storage::url($post->image->url) }}" class="h-auto w-96 mx-auto">
+            </a>
+        </div>
+    @endif
 
     {{ $slot }}
 </x-box>

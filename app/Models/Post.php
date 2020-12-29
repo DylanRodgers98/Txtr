@@ -9,6 +9,12 @@ class Post extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'user_id',
+        'parent_post_id',
+        'body'
+    ];
+
     public function user()
     {
         return $this->belongsTo(User::class);
@@ -47,5 +53,10 @@ class Post extends Model
     public function likedBy()
     {
         return $this->belongsToMany(User::class, 'user_liked_post');
+    }
+
+    public function image()
+    {
+        return $this->morphOne(Image::class, 'imageable');
     }
 }

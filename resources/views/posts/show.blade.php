@@ -8,17 +8,21 @@
 
         <div id="post">
             <x-post-component :post="$post">
-                <form class="py-2" method="POST" action="{{ route('posts.store') }}">
+                <form class="py-2" method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="userId" value="{{ Auth::id() }}">
                     <input type="hidden" name="parentPostId" value="{{ $post->id }}">
                     <input id="postBody" class="w-full rounded-full" type="text" name="postBody"
                         placeholder="{{ "Reply to @" . $post->user->username . "..." }}" value="{{ old('postBody') }}"
                         @keyup='updateCharCount()' @change='updateCharCount()'>
+                    <div class="float-left my-4">
+                        <label for="image">Add an image:</label>
+                        <input type="file" id="image" name="image" accept="image/*">
+                    </div>
                     <div class="float-right">
                         Characters remaining: @{{ postCharsRemaining }}
                         <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
-                            type="submit" value="Post">
+                            type="submit" value="Reply">
                     </div>
                 </form>
             </x-post-component>

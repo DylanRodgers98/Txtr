@@ -18,4 +18,14 @@ class Profile extends Model
     {
         $this->belongsTo(User::class);
     }
+
+    public function profileImage()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
+
+    public function bannerImage()
+    {
+        return $this->morphOne(Image::class, 'imageable');
+    }
 }

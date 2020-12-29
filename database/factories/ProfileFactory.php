@@ -26,10 +26,7 @@ class ProfileFactory extends Factory
             'display_name' => $this->faker->name,
             'bio' => FactoryHelpers::possiblyNull($this->faker->realText),
             'location' => FactoryHelpers::possiblyNull($this->faker->city . ", " . $this->faker->country),
-            'website_url' => FactoryHelpers::possiblyNull($this->faker->url),
-            // faker->image() generates a real image in the /tmp directory, so using ->imageUrl() instead to save time and space
-            'profile_img_path' => FactoryHelpers::possiblyNull($this->faker->imageUrl()),
-            'banner_img_path' => FactoryHelpers::possiblyNull($this->faker->imageUrl())
+            'website_url' => FactoryHelpers::possiblyNull($this->faker->url)
         ];
     }
 }

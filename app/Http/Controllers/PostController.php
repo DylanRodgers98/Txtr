@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
@@ -47,13 +49,23 @@ class PostController extends Controller
             'postBody' => 'required|string|max:140'
         ]);
 
-        $post = new Post();
-        $post->user_id = $validatedData['userId'];
-        $post->parent_post_id = $validatedData['parentPostId'] ?? null;
-        $post->body = $validatedData['postBody'];
-        $post->save();
+        if ($request->hasFile('image') && !$request->file('image')->isValid()) {
+            abort(500, 'An error occurred when uploading image.');
+        }
 
-        if (isset($validatedData['parentPostId'])) {
+        $post = Post::create([
+            'user_id' => $validatedData['userId'],
+            'parent_post_id' => $validatedData['parentPostId'] ?? null,
+            'body' => $validatedData['postBody']
+        ]);
+
+        if ($request->hasFile('image')) {
+            $imagePath = $request->image->store('/public/img');
+            $image = new Image(['url' => $imagePath]);
+            $post->image()->save($image);
+        }
+
+        if ($request->has('parentPostId')) {
             return redirect()
                 ->route('posts.show', ['post' => $validatedData['parentPostId']])
                 ->with('message', 'Reply created!');
