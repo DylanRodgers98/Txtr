@@ -65,9 +65,10 @@ class PostController extends Controller
             $post->image()->save($image);
         }
 
+        // if post is a reply, show reply
         if ($request->has('parentPostId')) {
             return redirect()
-                ->route('posts.show', ['post' => $validatedData['parentPostId']])
+                ->route('posts.show', ['post' => $post, '#post'])
                 ->with('message', 'Reply created!');
         }
         return redirect()

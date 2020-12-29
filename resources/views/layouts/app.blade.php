@@ -25,13 +25,13 @@
             <!-- Page Content -->
             <main>
                 @if (session('message'))
-                    <p class="sm:px-6 lg:px-8 py-1">
+                    <p class="sm:px-6 lg:px-8 pt-2">
                         {{ session('message') }}
                     </p>
                 @endif
 
                 @if ($errors->any())
-                    <div class="sm:px-6 lg:px-8">
+                    <div class="sm:px-6 lg:px-8 pt-2">
                         Errors:
                         <ul>
                             @foreach ($errors->all() as $error)
