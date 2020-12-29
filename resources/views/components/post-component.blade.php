@@ -17,7 +17,7 @@
         <a href="{{ route('posts.show', ['post' => $post]) }}">{{ $post->body }}</a>
     </div>
     <div>
-        <a href="">{{ "Reply " . $post->replies->count() }}</a>
+        <a href="{{ route('posts.show', ['post' => $post, '#post']) }}">{{ "Reply " . $post->replies->count() }}</a>
             {{ " · " }}
         <a href="">{{ "Like " . $post->likedBy->count() }}</a>
     </div>

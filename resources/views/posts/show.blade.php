@@ -6,9 +6,9 @@
             <x-post-component :post="$parentPost"/>
         @endforeach
 
-        <x-post-component :post="$post">
-            <div class="py-2">
-                <form method="POST" action="{{ route('posts.store') }}">
+        <div id="post">
+            <x-post-component :post="$post">
+                <form class="py-2" method="POST" action="{{ route('posts.store') }}">
                     @csrf
                     <input type="hidden" name="userId" value="{{ Auth::id() }}">
                     <input type="hidden" name="parentPostId" value="{{ $post->id }}">
@@ -21,8 +21,8 @@
                             type="submit" value="Post">
                     </div>
                 </form>
-            </div>
-        </x-post-component>
+            </x-post-component>
+        </div>
 
         @foreach ($post->replies as $reply)
             <x-post-component :post="$reply"/>
