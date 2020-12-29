@@ -42,20 +42,20 @@ class PostController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'user_id' => 'required|integer',
-            'parent_post_id' => 'nullable|integer',
-            'body' => 'required|string|max:140'
+            'userId' => 'required|integer',
+            'parentPostId' => 'nullable|integer',
+            'postBody' => 'required|string|max:140'
         ]);
 
         $post = new Post();
-        $post->user_id = $validatedData['user_id'];
-        $post->parent_post_id = $validatedData['parent_post_id'] ?? null;
-        $post->body = $validatedData['body'];
+        $post->user_id = $validatedData['userId'];
+        $post->parent_post_id = $validatedData['parentPostId'] ?? null;
+        $post->body = $validatedData['postBody'];
         $post->save();
 
-        if (isset($validatedData['parent_post_id'])) {
+        if (isset($validatedData['parentPostId'])) {
             return redirect()
-                ->route('posts.show', ['post' => $validatedData['parent_post_id']])
+                ->route('posts.show', ['post' => $validatedData['parentPostId']])
                 ->with('message', 'Reply created!');
         }
         return redirect()
