@@ -14,13 +14,13 @@
                     <input type="hidden" name="parentPostId" value="{{ $post->id }}">
                     <input id="postBody" class="w-full rounded-full" type="text" name="postBody"
                         placeholder="{{ "Reply to @" . $post->user->username . "..." }}" value="{{ old('postBody') }}"
-                        @keyup='updateCharCount()' @change='updateCharCount()'>
+                        @keyup='$refs.chars.updateCharCount()' @change='$refs.chars.updateCharCount()'>
                     <div class="float-left my-4">
                         <label for="image">Add an image:</label>
                         <input type="file" id="image" name="image" accept="image/*">
                     </div>
                     <div class="float-right">
-                        Characters remaining: @{{ postCharsRemaining }}
+                        <character-count ref="chars"></character-count>
                         <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
                             type="submit" value="Reply">
                     </div>
@@ -32,23 +32,4 @@
             <x-post-component :post="$reply"/>
         @endforeach
     </div>
-
-    <script>
-        var app = new Vue({
-            el: "#root",
-            data: {
-                maxPostChars: 140,
-                postCharsRemaining: 140
-            },
-            methods: {
-                updateCharCount: function() {
-                    const postBodyLength = document.getElementById('postBody').value.length;
-                    this.postCharsRemaining = this.maxPostChars - postBodyLength;
-                }
-            },
-            beforeMount() {
-                this.updateCharCount();
-            }
-        });
-    </script>
 </x-app-layout>

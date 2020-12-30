@@ -12,36 +12,41 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', 'PostController@index')->name('home');
-
 require __DIR__.'/auth.php';
 
-/**
- * Post routes
- */
-// this will need reinstating with controller method & view instead of redirect when admin user role created
-Route::get('posts', fn() => redirect()->route('home'))->name('posts.index');
+// apply auth middleware to all non-auth routes
+Route::middleware('auth')->group(function () {
+    /**
+     * Home route
+     */
+    Route::get('/', 'PostController@index')->name('home');
 
-Route::post('posts', 'PostController@store')->name('posts.store');
+    /**
+     * Post routes
+     */
+    // this will need reinstating with controller method & view instead of redirect when admin user role created
+    Route::get('posts', fn() => redirect()->route('home'))->name('posts.index');
 
-Route::get('posts/{post}', 'PostController@show')->name('posts.show');
+    Route::post('posts', 'PostController@store')->name('posts.store');
 
-Route::delete('posts/{post}', 'PostController@destroy')->name('posts.destroy');
+    Route::get('posts/{post}', 'PostController@show')->name('posts.show');
 
-/**
- * User routes
- */
-Route::get('users', 'UserController@index')->name('users.index');
+    Route::delete('posts/{post}', 'PostController@destroy')->name('posts.destroy');
 
-Route::get('users/create', 'UserController@create')->name('users.create');
+    /**
+     * User routes
+     */
+    Route::get('users', 'UserController@index')->name('users.index');
 
-Route::post('users', 'UserController@store')->name('users.store');
+    Route::get('users/create', 'UserController@create')->name('users.create');
 
-Route::get('users/{user}', 'UserController@show')->name('users.show');
+    Route::post('users', 'UserController@store')->name('users.store');
 
-Route::get('users/{user}/following', 'UserController@indexFollowing')->name('users.indexFollowing');
+    Route::get('users/{user}', 'UserController@show')->name('users.show');
 
-Route::get('users/{user}/followers', 'UserController@indexFollowers')->name('users.indexFollowers');
+    Route::get('users/{user}/following', 'UserController@indexFollowing')->name('users.indexFollowing');
 
-Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+    Route::get('users/{user}/followers', 'UserController@indexFollowers')->name('users.indexFollowers');
+
+    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+});

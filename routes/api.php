@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/**
+ * Post API routes
+ */
+Route::post('/posts/{post}/like/{user}', 'PostController@like')->name('api.posts.like');
+
+Route::post('/posts/{post}/dislike/{user}', 'PostController@dislike')->name('api.posts.dislike');
+
+Route::get('/posts/{post}/isLikedBy/{user}', 'PostController@isLikedBy')->name('api.posts.isLikedBy');

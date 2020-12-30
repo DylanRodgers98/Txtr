@@ -11,10 +11,6 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     /**
      * Display a listing of the resource.
@@ -121,5 +117,25 @@ class PostController extends Controller
         $post->delete();
         return redirect()->route('posts.index')
             ->with('message', 'Post deleted.');
+    }
+
+    public function like(Post $post, User $user)
+    {
+        $post->likedBy()->attach($user->id);
+        $numberOfLikes = $post->likedBy()->count();
+        return response()->json(['numberOfLikes' => $numberOfLikes]);
+    }
+
+    public function dislike(Post $post, User $user)
+    {
+        $post->likedBy()->detach($user->id);
+        $numberOfLikes = $post->likedBy()->count();
+        return response()->json(['numberOfLikes' => $numberOfLikes]);
+    }
+
+    public function isLikedBy(Post $post, User $user)
+    {
+        $isLiked = in_array($user->id, $post->likedBy->pluck('id')->all());
+        return response()->json(['isLiked' => $isLiked]);
     }
 }

@@ -19,7 +19,9 @@
     <div>
         <a href="{{ route('posts.show', ['post' => $post, '#post']) }}">{{ "Reply " . $post->replies->count() }}</a>
             {{ " · " }}
-        <a href="">{{ "Like " . $post->likedBy->count() }}</a>
+        <post-likes :number-of-likes="{{ $post->likedBy->count() }}"
+            :post-id="{{ $post->id }}" :user-id="{{ Auth::id() }}">
+        </post-likes>
     </div>
     @if ($post->image)
         <div class="pt-2">
