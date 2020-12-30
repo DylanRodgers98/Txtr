@@ -1,4 +1,9 @@
 <x-box>
+    @if ($post->user->id == Auth::id())
+        <div class="float-right">
+            <a href="{{ route('posts.edit', ['post' => $post]) }}">Edit</a>
+        </div>
+    @endif
     @if ($post->parent_post_id)
         <p class="pb-2">Replying to <a href="{{ route('users.show', ['user' => $post->parentPost->user]) }}">
             {{ "@" . $post->parentPost->user->username }}</a></p>
@@ -14,10 +19,14 @@
         {{ ' · ' . $post->created_at }}
     </a>
     <div>
-        <a href="{{ route('posts.show', ['post' => $post]) }}">{{ $post->body }}</a>
+        <a href="{{ route('posts.show', ['post' => $post]) }}">
+            {{ $post->body }}
+        </a>
     </div>
     <div>
-        <a href="{{ route('posts.show', ['post' => $post, '#post']) }}">{{ "Reply " . $post->replies->count() }}</a>
+        <a href="{{ route('posts.show', ['post' => $post, '#post']) }}">
+            {{ "Reply " . $post->replies->count() }}
+        </a>
         {{ " · " }}
         <post-likes :number-of-likes="{{ $post->likedBy->count() }}"
             :post-id="{{ $post->id }}" :auth-user-id="{{ Auth::id() }}">

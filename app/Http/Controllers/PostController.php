@@ -91,7 +91,7 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        //
+        return view('posts.edit', ['post' => $post]);
     }
 
     /**
@@ -103,7 +103,32 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $validatedData = $request->validate([
+            'postBody' => 'required|string|max:140'
+        ]);
+
+        if ($request->hasFile('image') && !$request->file('image')->isValid()) {
+            abort(500, 'An error occurred when uploading image.');
+        }
+
+        $post->body = $validatedData['postBody'];
+
+        if ($request->hasFile('image')) {
+            // delete old image
+            Storage::delete($post->image->url);
+            $post->image()->delete();
+
+            // save new image
+            $imagePath = $request->image->store('/public/img');
+            $image = new Image(['url' => $imagePath]);
+            $post->image()->save($image);
+        }
+
+        $post->save();
+
+        return redirect()
+            ->route('posts.show', ['post' => $post, '#post'])
+            ->with('message', 'Post updated.');
     }
 
     /**
@@ -115,7 +140,8 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
-        return redirect()->route('posts.index')
+        return redirect()
+            ->route('posts.index')
             ->with('message', 'Post deleted.');
     }
 
