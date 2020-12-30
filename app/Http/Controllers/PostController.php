@@ -91,6 +91,9 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if (Auth::id() != $post->user_id) {
+            return response("403 Forbidden: You are not authorized to edit other users' posts.", 403);
+        }
         return view('posts.edit', ['post' => $post]);
     }
 
