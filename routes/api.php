@@ -26,3 +26,12 @@ Route::post('/posts/{post}/like/{user}', 'PostController@like')->name('api.posts
 Route::post('/posts/{post}/dislike/{user}', 'PostController@dislike')->name('api.posts.dislike');
 
 Route::get('/posts/{post}/isLikedBy/{user}', 'PostController@isLikedBy')->name('api.posts.isLikedBy');
+
+/**
+ * User API routes
+ */
+Route::post('/users/{user}/follow/{userToFollow}', 'UserController@follow')->name('api.users.follow');
+
+Route::post('/users/{user}/unfollow/{userToUnfollow}', 'UserController@unfollow')->name('api.users.unfollow');
+
+Route::get('/users/{user}/isFollowing/{userToQuery}', 'UserController@isFollowing')->name('api.users.isFollowing');

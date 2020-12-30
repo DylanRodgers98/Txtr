@@ -4,15 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -52,15 +46,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $authUserId = Auth::id();
-        $isAuthUser = $authUserId == $user->id;
-        $isAuthUserFollowing = in_array($authUserId, $user->followers->pluck('id')->all());
-
-        return view('users.show', [
-            'user' => $user,
-            'isAuthUser' => $isAuthUser,
-            'isAuthUserFollowing' => $isAuthUserFollowing
-        ]);
+        return view('users.show', ['user' => $user]);
     }
 
     public function indexFollowing(User $user)
@@ -105,5 +91,23 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         //
+    }
+
+    public function isFollowing(User $user, User $userToQuery)
+    {
+        $isFollowing = in_array($user->id, $userToQuery->followers->pluck('id')->all());
+        return response()->json(['isFollowing' => $isFollowing]);
+    }
+
+    public function follow(User $user, User $userToFollow)
+    {
+        $userToFollow->followers()->attach($user->id);
+        return response()->json(['isFollowing' => true]);
+    }
+
+    public function unfollow(User $user, User $userToUnfollow)
+    {
+        $userToUnfollow->followers()->detach($user->id);
+        return response()->json(['isFollowing' => false]);
     }
 }

@@ -12,15 +12,13 @@
                     alt="{{ $user->profile->display_name }}'s Profile Picture">
 
                 <div class="p-4">
-                    <button class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        @if ($isAuthUser)
+                    @if (Auth::id() == $user->id)
+                        <button class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                             Edit Profile
-                        @elseif ($isAuthUserFollowing)
-                            Unfollow
-                        @else
-                            Follow
-                        @endif
-                    </button>
+                        </button>
+                    @else
+                        <follow-button :profile-user-id="{{ $user->id }}" :auth-user-id="{{ Auth::id() }}"></follow-button>
+                    @endif
 
                     <div>
                         <b>{{ $user->profile->display_name ?? $user->username }}</b>
@@ -30,9 +28,7 @@
                     </div>
 
                     <div class="pb-2">
-                        @if ($user->profile->bio)
-                            <p>{{ $user->profile->bio }}</p>
-                        @endif
+                        <p>{{ $user->profile->bio }}</p>
 
                         @if ($user->profile->location)
                             <p>Location: {{ $user->profile->location }}</p>
