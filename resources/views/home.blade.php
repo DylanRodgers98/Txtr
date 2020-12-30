@@ -22,7 +22,7 @@
         </x-box>
 
         @foreach ($posts as $post)
-            <x-post-component :post="$post"/>
+            <x-post :post="$post"/>
         @endforeach
     </div>
 </x-app-layout>

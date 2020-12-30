@@ -26,6 +26,6 @@ class PostComponent extends Component
      */
     public function render()
     {
-        return view('components.post-component', ['post' => $this->post]);
+        return view('components.post', ['post' => $this->post]);
     }
 }

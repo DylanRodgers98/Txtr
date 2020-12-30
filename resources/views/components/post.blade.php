@@ -18,15 +18,16 @@
     </div>
     <div>
         <a href="{{ route('posts.show', ['post' => $post, '#post']) }}">{{ "Reply " . $post->replies->count() }}</a>
-            {{ " · " }}
+        {{ " · " }}
         <post-likes :number-of-likes="{{ $post->likedBy->count() }}"
-            :post-id="{{ $post->id }}" :user-id="{{ Auth::id() }}">
+            :post-id="{{ $post->id }}" :auth-user-id="{{ Auth::id() }}">
         </post-likes>
     </div>
     @if ($post->image)
         <div class="pt-2">
             <a href="{{ Storage::url($post->image->url) }}">
-                <img src="{{ Storage::url($post->image->url) }}" class="h-auto w-96 mx-auto">
+                <img src="{{ Storage::url($post->image->url) }}" class="h-auto w-96 mx-auto"
+                    alt="{{ "Image attached to @" . $post->user->username . "'s post" }}">
             </a>
         </div>
     @endif

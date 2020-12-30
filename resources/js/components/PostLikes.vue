@@ -17,7 +17,7 @@
             postId: {
                 type: Number
             },
-            userId: {
+            authUserId: {
                 type: Number
             }
         },
@@ -27,7 +27,7 @@
             };
         },
         beforeMount() {
-            axios.get(`/api/posts/${this.postId}/isLikedBy/${this.userId}`)
+            axios.get(`/api/posts/${this.postId}/isLikedBy/${this.authUserId}`)
                 .then(res => {
                     this.isLiked = res.data.isLiked;
                 })
@@ -38,7 +38,7 @@
         methods: {
             likeOrDislikePost: function () {
                 const likeOrDislike = this.isLiked ? 'dislike' : 'like';
-                axios.post(`/api/posts/${this.postId}/${likeOrDislike}/${this.userId}`)
+                axios.post(`/api/posts/${this.postId}/${likeOrDislike}/${this.authUserId}`)
                     .then(res => {
                         this.numberOfLikes = res.data.numberOfLikes;
                         this.isLiked = !this.isLiked;

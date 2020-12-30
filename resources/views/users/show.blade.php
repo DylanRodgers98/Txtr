@@ -56,7 +56,7 @@
 
     <div class="pb-1">
         @foreach ($user->posts as $post)
-            <x-post-component :post="$post"/>
+            <x-post :post="$post"/>
         @endforeach
     </div>
 </x-app-layout>

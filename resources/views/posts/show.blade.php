@@ -3,11 +3,11 @@
 <x-app-layout>
     <div class="py-1">
         @foreach ($post->parentPosts() as $parentPost)
-            <x-post-component :post="$parentPost"/>
+            <x-post :post="$parentPost"/>
         @endforeach
 
         <div id="post">
-            <x-post-component :post="$post">
+            <x-post :post="$post">
                 <form class="py-2" method="POST" action="{{ route('posts.store') }}" enctype="multipart/form-data">
                     @csrf
                     <input type="hidden" name="userId" value="{{ Auth::id() }}">
@@ -25,11 +25,11 @@
                             type="submit" value="Reply">
                     </div>
                 </form>
-            </x-post-component>
+            </x-post>
         </div>
 
         @foreach ($post->replies as $reply)
-            <x-post-component :post="$reply"/>
+            <x-post :post="$reply"/>
         @endforeach
     </div>
 </x-app-layout>
