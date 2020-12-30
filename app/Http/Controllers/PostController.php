@@ -20,7 +20,7 @@ class PostController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $userIds = array($user->id, $user->following->pluck('id'));
+        $userIds = array_merge([$user->id], $user->following->pluck('id')->all());
         $posts = Post::whereIn('user_id', $userIds)
             ->orderBy('created_at', 'desc')
             ->get();
