@@ -1,8 +1,8 @@
 <template>
-    <a v-if="isLiked" href="javascript:;" v-on:click="likeOrDislikePost">
-        <b>Unlike {{ numberOfLikes }}</b>
+    <a v-if="isLiked" title="Unlike Post" href="javascript:;" v-on:click="likeOrDislikePost">
+        <b>Liked {{ numberOfLikes }}</b>
     </a>
-    <a v-else href="javascript:;" v-on:click="likeOrDislikePost">
+    <a v-else title="Like Post" href="javascript:;" v-on:click="likeOrDislikePost">
         Like {{ numberOfLikes }}
     </a>
 </template>
@@ -28,12 +28,8 @@
         },
         beforeMount() {
             axios.get(`/api/posts/${this.postId}/isLikedBy/${this.authUserId}`)
-                .then(res => {
-                    this.isLiked = res.data.isLiked;
-                })
-                .catch(err => {
-                    console.error(err);
-                });
+                .then(res => this.isLiked = res.data.isLiked)
+                .catch(err => console.error(err));
         },
         methods: {
             likeOrDislikePost: function () {
@@ -43,9 +39,7 @@
                         this.numberOfLikes = res.data.numberOfLikes;
                         this.isLiked = !this.isLiked;
                     })
-                    .catch(err => {
-                        console.error(err);
-                    });
+                    .catch(err => console.error(err));
             }
         }
     }
