@@ -92,7 +92,7 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         if (Auth::id() != $post->user_id) {
-            return response("403 Forbidden: You are not authorized to edit other users' posts.", 403);
+            return abort(403, "You are not authorized to edit other users' posts");
         }
         return view('posts.edit', ['post' => $post]);
     }
@@ -117,9 +117,11 @@ class PostController extends Controller
         $post->body = $validatedData['postBody'];
 
         if ($request->hasFile('image')) {
-            // delete old image
-            Storage::delete($post->image->url);
-            $post->image()->delete();
+            // delete old image if there is one
+            if ($post->image) {
+                Storage::delete($post->image->url);
+                $post->image()->delete();
+            }
 
             // save new image
             $imagePath = $request->image->store('/public/img');

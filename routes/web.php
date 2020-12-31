@@ -52,5 +52,9 @@ Route::middleware('auth')->group(function () {
 
     Route::get('users/{user}/followers', 'UserController@indexFollowers')->name('users.indexFollowers');
 
+    Route::get('users/{user}/edit-profile', 'ProfileController@edit')->name('users.profile.edit');
+
+    Route::put('users/{user}/profile', 'ProfileController@update')->name('users.profile.update');
+
     Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
 });

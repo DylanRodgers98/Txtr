@@ -2,7 +2,7 @@
 
 <x-app-layout>
     <img src="{{ $user->profile->banner_img_path ?? "https://pbs.twimg.com/profile_banners/1029010076/1520800849/1500x500" }}"
-        class="w-full h-96 sm:px-6 lg:px-8" alt="{{ $user->profile->display_name }}'s Banner">
+        class="w-full h-96 sm:px-6 lg:px-8" alt="{{ $user->profile->display_name }}'s Banner Image">
 
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-1">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-bl-lg sm:rounded-br-lg">
@@ -13,9 +13,11 @@
 
                 <div class="p-4">
                     @if (Auth::id() == $user->id)
-                        <button class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                            Edit Profile
-                        </button>
+                        <a href="{{ route('users.profile.edit', ['user' => $user]) }}">
+                            <button class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                Edit Profile
+                            </button>
+                        </a>
                     @else
                         <follow-button :profile-user-id="{{ $user->id }}" :auth-user-id="{{ Auth::id() }}"></follow-button>
                     @endif
