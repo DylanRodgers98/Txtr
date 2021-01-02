@@ -20,7 +20,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.index')">
                         {{ __('Notifications') }}
-                        <p name="numOfNotifications" class="bg-gray-500 text-white py-1 px-2 ml-2 my-2 rounded-full">0</p>
+                        <p id="numOfNotifications" class="bg-gray-500 text-white py-1 px-2 ml-2 my-2 rounded-full">0</p>
                     </x-nav-link>
                 </div>
             </div>
