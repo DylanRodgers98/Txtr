@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Notifications\NewFollower;
 use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
@@ -107,6 +108,10 @@ class UserController extends Controller
     public function follow(User $user, User $userToFollow)
     {
         $userToFollow->followers()->attach($user->id);
+
+        // send notification to User being followed
+        $userToFollow->notify(new NewFollower($user));
+
         return response()->json(['isFollowing' => true]);
     }
 

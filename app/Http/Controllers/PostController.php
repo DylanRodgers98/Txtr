@@ -6,6 +6,8 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\PostHasNewReply;
+use App\Notifications\PostLiked;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -63,6 +65,11 @@ class PostController extends Controller
 
         // if post is a reply, show reply
         if ($request->has('parentPostId')) {
+            // send notification to User who posted parent post
+            Post::findOrFail($validatedData['parentPostId'])
+                ->user
+                ->notify(new PostHasNewReply($post));
+
             return redirect()
                 ->route('posts.show', ['post' => $post, '#post'])
                 ->with('message', 'Reply created!');
@@ -153,6 +160,10 @@ class PostController extends Controller
     public function like(Post $post, User $user)
     {
         $post->likedBy()->attach($user->id);
+
+        // send notification to User who posted post
+        $post->user->notify(new PostLiked($post, $user));
+
         $numberOfLikes = $post->likedBy()->count();
         return response()->json(['numberOfLikes' => $numberOfLikes]);
     }
