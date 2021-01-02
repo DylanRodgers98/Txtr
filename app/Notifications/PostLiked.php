@@ -37,7 +37,7 @@ class PostLiked extends Notification
     public function via($notifiable)
     {
         // return ['mail', 'broadcast'];
-        return ['broadcast'];
+        return ['broadcast', 'database'];
     }
 
     /**

@@ -35,6 +35,7 @@ window.Vue = require('vue');
 Vue.component('character-count', require('./components/CharacterCount.vue').default);
 Vue.component('post-likes', require('./components/PostLikes.vue').default);
 Vue.component('follow-button', require('./components/FollowButton.vue').default);
+Vue.component('notification-count-updater', require('./components/NotificationCountUpdater.vue').default);
 
 const app = new Vue({
     el: "#root"

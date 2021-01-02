@@ -39,6 +39,11 @@
                     </div>
                 @endif
 
+                <notification-count-updater :auth-user-id="{{ Auth::id() }}"
+                    :num-unread-notifications="{{ Auth::user()->unreadNotifications->count() }}"
+                    text-element="numOfNotifications">
+                </notification-count-updater>
+
                 {{ $slot }}
             </main>
         </div>

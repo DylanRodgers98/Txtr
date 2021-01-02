@@ -57,4 +57,9 @@ Route::middleware('auth')->group(function () {
     Route::put('users/{user}/profile', 'ProfileController@update')->name('users.profile.update');
 
     Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+
+    /**
+     * Notifications routes
+     */
+    Route::get('notifications', 'NotificationController@index')->name('notifications.index');
 });

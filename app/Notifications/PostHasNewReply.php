@@ -33,7 +33,7 @@ class PostHasNewReply extends Notification
     public function via($notifiable)
     {
         // return ['mail', 'broadcast'];
-        return ['broadcast'];
+        return ['broadcast', 'database'];
     }
 
     /**
