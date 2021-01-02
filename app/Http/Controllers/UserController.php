@@ -47,7 +47,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('users.show', ['user' => $user]);
+        $paginatedPosts = $user->posts()->simplePaginate(10);
+        return view('users.show', [
+            'user' => $user,
+            'paginatedPosts' => $paginatedPosts
+        ]);
     }
 
     public function indexFollowing(User $user)

@@ -53,8 +53,12 @@
     </div>
 
     <div class="pb-1">
-        @foreach ($user->posts as $post)
+        @foreach ($paginatedPosts as $post)
             <x-post :post="$post"/>
         @endforeach
+    </div>
+
+    <div class="pb-2 sm:px-6 lg:px-8">
+        {{ $paginatedPosts->links() }}
     </div>
 </x-app-layout>

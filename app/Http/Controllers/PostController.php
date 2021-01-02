@@ -23,7 +23,7 @@ class PostController extends Controller
         $userIds = array_merge([$user->id], $user->following->pluck('id')->all());
         $posts = Post::whereIn('user_id', $userIds)
             ->orderBy('created_at', 'desc')
-            ->get();
+            ->simplePaginate(10);
 
         return view('home', [
             'user' => $user,

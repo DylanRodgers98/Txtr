@@ -24,5 +24,9 @@
         @foreach ($posts as $post)
             <x-post :post="$post"/>
         @endforeach
+
+        <div class="py-1 sm:px-6 lg:px-8">
+            {{ $posts->links() }}
+        </div>
     </div>
 </x-app-layout>
