@@ -14,7 +14,10 @@
                     <input type="file" id="image" name="image" accept="image/*">
                 </div>
                 <div class="float-right">
-                    <character-count ref="chars" text-element="postBody" :max-chars="140"></character-count>
+                    <character-count ref="chars"
+                        text-element="postBody"
+                        :max-chars="140">
+                    </character-count>
                     <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
                         type="submit" value="Post">
                 </div>

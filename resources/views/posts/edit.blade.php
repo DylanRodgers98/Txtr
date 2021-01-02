@@ -31,7 +31,10 @@
             </form>
 
             <div class="float-right">
-                <character-count ref="chars" text-element="postBody" :max-chars="140"></character-count>
+                <character-count ref="chars"
+                    text-element="postBody"
+                    :max-chars="140">
+                </character-count>
                 <a href="{{ route('posts.show', ['post' => $post]) }}">
                     <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer">
                         Back
