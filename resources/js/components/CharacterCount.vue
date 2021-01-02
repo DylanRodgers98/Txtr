@@ -1,19 +1,26 @@
 <template>
-    <span>Characters remaining: {{ postCharsRemaining }}</span>
+    <span>Characters remaining: {{ charsRemaining }}</span>
 </template>
 
 <script>
     export default {
+        props: {
+            maxChars: {
+                type: Number
+            },
+            textElement: {
+                type: String
+            }
+        },
         data() {
             return {
-                maxPostChars: 140,
-                postCharsRemaining: 140
+                charsRemaining: this.maxChars
             }
         },
         methods: {
-            updateCharCount: function() {
-                const postBodyLength = document.getElementById('postBody').value.length;
-                this.postCharsRemaining = this.maxPostChars - postBodyLength;
+            updateCharCount: function () {
+                const currentChars = document.getElementById(this.textElement).value.length;
+                this.charsRemaining = this.maxChars - currentChars;
             }
         },
         mounted() {

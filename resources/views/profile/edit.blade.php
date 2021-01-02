@@ -22,24 +22,36 @@
 
                 <div class="pb-2">
                     <label for="displayName">Display Name:</label>
+                    <div class="float-right">
+                        <character-count ref="displayNameChars" text-element="displayName" :max-chars="50"></character-count>
+                    </div>
                     <input class="w-full rounded-full" type="text" id="displayName" name="displayName"
                         value="{{ old('displayName') ?? $user->profile->display_name }}">
                 </div>
 
                 <div class="pb-2">
                     <label for="bio">Bio:</label>
+                    <div class="float-right">
+                        <character-count ref="bioChars" text-element="bio" :max-chars="140"></character-count>
+                    </div>
                     <input class="w-full rounded-full" type="text" id="bio" name="bio"
                         value="{{ old('bio') ?? $user->profile->bio }}">
                 </div>
 
                 <div class="pb-2">
                     <label for="location">Location:</label>
+                    <div class="float-right">
+                        <character-count ref="locationChars" text-element="location" :max-chars="30"></character-count>
+                    </div>
                     <input class="w-full rounded-full" type="text" id="location" name="location"
                         value="{{ old('location') ?? $user->profile->location }}">
                 </div>
 
                 <div class="pb-2">
                     <label for="websiteUrl">Website:</label>
+                    <div class="float-right">
+                        <character-count ref="websiteUrlChars" text-element="websiteUrl" :max-chars="100"></character-count>
+                    </div>
                     <input class="w-full rounded-full" type="text" id="websiteUrl" name="websiteUrl"
                         value="{{ old('websiteUrl') ?? $user->profile->website_url }}">
                 </div>
