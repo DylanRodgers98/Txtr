@@ -26,12 +26,18 @@
                     <input type="file" id="image" name="image" accept="image/*">
                 </div>
 
-                <div class="float-right">
-                    <character-count ref="chars"></character-count>
-                    <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
-                        type="submit" value="Edit Post">
-                </div>
+                <input class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
+                    type="submit" value="Edit Post">
             </form>
+
+            <div class="float-right">
+                <character-count ref="chars"></character-count>
+                <a href="{{ route('posts.show', ['post' => $post]) }}">
+                    <button class="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer">
+                        Back
+                    </button>
+                </a>
+            </div>
         </x-box>
     </div>
 </x-app-layout>
