@@ -1,5 +1,12 @@
 <a href="{{ route('users.show', ['user' => $user]) }}">
     <x-box>
+        @if (Auth::user()->admin)
+            <form class="float-right ml-1" method="POST" action="{{ route('users.destroy', ['user' => $user]) }}">
+                @csrf
+                @method('DELETE')
+                <input class="float-right bg-white cursor-pointer" type="submit" value="Delete">
+            </form>
+        @endif
         <img src="{{ $user->profile->profileImage->url ?? "https://i.stack.imgur.com/l60Hf.png" }}"
             class="float-left rounded-full h-24 w-24 mb-6 mr-6"
             alt="{{ $user->profile->display_name }}'s Profile Picture">

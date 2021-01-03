@@ -24,9 +24,6 @@ Route::middleware('auth')->group(function () {
     /**
      * Post routes
      */
-    // this will need reinstating with controller method & view instead of redirect when admin user role created
-    Route::get('posts', fn() => redirect()->route('home'))->name('posts.index');
-
     Route::post('posts', 'PostController@store')->name('posts.store');
 
     Route::get('posts/{post}', 'PostController@show')->name('posts.show');
@@ -42,21 +39,20 @@ Route::middleware('auth')->group(function () {
      */
     Route::get('users', 'UserController@index')->name('users.index');
 
-    Route::get('users/create', 'UserController@create')->name('users.create');
-
-    Route::post('users', 'UserController@store')->name('users.store');
-
     Route::get('users/{user}', 'UserController@show')->name('users.show');
 
     Route::get('users/{user}/following', 'UserController@indexFollowing')->name('users.indexFollowing');
 
     Route::get('users/{user}/followers', 'UserController@indexFollowers')->name('users.indexFollowers');
 
+    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
+
+    /**
+     * User Profile routes
+     */
     Route::get('users/{user}/edit-profile', 'ProfileController@edit')->name('users.profile.edit');
 
     Route::put('users/{user}/profile', 'ProfileController@update')->name('users.profile.update');
-
-    Route::delete('users/{user}', 'UserController@destroy')->name('users.destroy');
 
     /**
      * Notifications routes
