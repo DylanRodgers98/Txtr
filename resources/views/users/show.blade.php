@@ -1,13 +1,10 @@
 @section('title', $user->profile->display_name . " (@" . $user->username . ")")
 
 <x-app-layout>
-    <img src="{{ $user->profile->banner_img_path ?? "https://pbs.twimg.com/profile_banners/1029010076/1520800849/1500x500" }}"
-        class="w-full h-96 sm:px-6 lg:px-8" alt="{{ $user->profile->display_name }}'s Banner Image">
-
     <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 pb-1">
         <div class="bg-white overflow-hidden shadow-sm sm:rounded-bl-lg sm:rounded-br-lg">
             <div class="bg-white border-gray-200">
-                <img src="{{ $user->profile->profile_img_path ?? "https://i.stack.imgur.com/l60Hf.png" }}"
+                <img src="{{ $user->profile->profileImage->url ?? "https://i.stack.imgur.com/l60Hf.png" }}"
                     class="h-64 w-64 p-4 rounded-full float-left"
                     alt="{{ $user->profile->display_name }}'s Profile Picture">
 
@@ -53,12 +50,12 @@
     </div>
 
     <div class="pb-1">
-        @foreach ($paginatedPosts as $post)
+        @foreach ($posts as $post)
             <x-post :post="$post"/>
         @endforeach
     </div>
 
     <div class="pb-2 sm:px-6 lg:px-8">
-        {{ $paginatedPosts->links() }}
+        {{ $posts->links() }}
     </div>
 </x-app-layout>

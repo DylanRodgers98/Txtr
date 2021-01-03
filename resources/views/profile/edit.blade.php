@@ -7,13 +7,6 @@
                 @csrf
                 @method('PUT')
                 <div class="pb-4">
-                    <label for="bannerImage">
-                        @if ($user->profile->bannerImage) Change @else Add a @endif banner image:
-                    </label>
-                    <input type="file" id="bannerImage" name="bannerImage" accept="image/*">
-                </div>
-
-                <div class="pb-4">
                     <label for="profileImage">
                         @if ($user->profile->profileImage) Change @else Add a @endif profile image:
                     </label>

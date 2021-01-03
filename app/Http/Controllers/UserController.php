@@ -48,10 +48,11 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        $paginatedPosts = $user->posts()->simplePaginate(10);
+        $posts = $user->posts()->simplePaginate(10);
+
         return view('users.show', [
             'user' => $user,
-            'paginatedPosts' => $paginatedPosts
+            'posts' => $posts
         ]);
     }
 

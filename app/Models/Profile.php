@@ -16,15 +16,10 @@ class Profile extends Model
 
     public function user()
     {
-        $this->belongsTo(User::class);
+        return $this->belongsTo(User::class);
     }
 
     public function profileImage()
-    {
-        return $this->morphOne(Image::class, 'imageable');
-    }
-
-    public function bannerImage()
     {
         return $this->morphOne(Image::class, 'imageable');
     }

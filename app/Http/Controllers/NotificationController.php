@@ -54,6 +54,8 @@ class NotificationController extends Controller
                     $displayableNotifications[] = new DisplayableNotification(
                         $profileImageUrl, $heading, $subheading, $timestamp, $notificationUrl, $unread);
                     break;
+                default:
+                    throw new \Exception('Encountered unknown notification type: ' . $notification->type);
             }
             $notification->markAsRead();
         }

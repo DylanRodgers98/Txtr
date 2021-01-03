@@ -40,47 +40,14 @@ class ProfileController extends Controller
             'websiteUrl' => 'nullable|url|max:100'
         ]);
 
-        $isBannerImageValid = true;
-        if ($request->hasFile('bannerImage')) {
-            $isBannerImageValid = $request->file('bannerImage')->isValid();
-        }
-
-        $isProfileImageValid = true;
-        if ($request->hasFile('profileImage')) {
-            $isProfileImageValid = $request->file('profileImage')->isValid();
-        }
-
-        if (!$isBannerImageValid || !$isProfileImageValid) {
-            $failureMsg = 'An error occurred when uploading ';
-
-            if (!$isBannerImageValid && !$isProfileImageValid) {
-                $failureMsg = $failureMsg . 'banner image and profile image';
-            } else if (!$isBannerImageValid && $isProfileImageValid) {
-                $failureMsg = $failureMsg . 'banner image';
-            } else if ($isBannerImageValid && !$isProfileImageValid) {
-                $failureMsg = $failureMsg . 'profile image';
-            }
-
-            abort(500, $failureMsg);
+        if ($request->hasFile('profileImage') && $request->file('profileImage')->isValid()) {
+            abort(500, 'An error occurred when uploading profile image');
         }
 
         $user->profile->display_name = $validatedData['displayName'];
         $user->profile->bio = $validatedData['bio'];
         $user->profile->location = $validatedData['location'];
         $user->profile->website_url = $validatedData['websiteUrl'];
-
-        if ($request->hasFile('bannerImage')) {
-            // delete old banner image if there is one
-            if ($user->profile->bannerImage) {
-                Storage::delete($user->profile->bannerImage->url);
-                $user->profile->bannerImage()->delete();
-            }
-
-            // save new banner image
-            $bannerImagePath = $request->image->store('/public/img');
-            $bannerImage = new Image(['url' => Storage::url($bannerImagePath)]);
-            $user->profile->bannerImage()->save($bannerImage);
-        }
 
         if ($request->hasFile('profileImage')) {
             // delete old profile image if there is one
@@ -90,7 +57,7 @@ class ProfileController extends Controller
             }
 
             // save new profile image
-            $profileImagePath = $request->image->store('/public/img');
+            $profileImagePath = $request->profileImage->store('/public/img');
             $profileImage = new Image(['url' => Storage::url($profileImagePath)]);
             $user->profile->profileImage()->save($profileImage);
         }
