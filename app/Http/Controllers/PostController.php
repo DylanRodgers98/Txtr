@@ -26,11 +26,20 @@ class PostController extends Controller
     public function index()
     {
         $user = Auth::user();
-        $userIds = array_merge([$user->id], $user->following->pluck('id')->all());
-        $posts = Post::whereIn('user_id', $userIds)
-            ->orderBy('created_at', 'desc')
-            ->orderBy('id', 'desc')
-            ->simplePaginate(10);
+
+        if ($user->admin) {
+            // if User is admin, index all Posts
+            $posts = Post::orderBy('created_at', 'desc')
+                ->orderBy('id', 'desc')
+                ->simplePaginate(10);
+        } else {
+            // else index Posts only from followed Users
+            $userIds = array_merge([$user->id], $user->following->pluck('id')->all());
+            $posts = Post::whereIn('user_id', $userIds)
+                ->orderBy('created_at', 'desc')
+                ->orderBy('id', 'desc')
+                ->simplePaginate(10);
+        }
 
         return view('home', [
             'user' => $user,
@@ -154,8 +163,9 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
         return redirect()
-            ->route('posts.index')
+            ->route('home')
             ->with('message', 'Post deleted.');
     }
 

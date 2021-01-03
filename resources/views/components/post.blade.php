@@ -1,9 +1,17 @@
 <x-box>
-    @if ($post->user->id === Auth::id())
-        <div class="float-right">
+    <div class="float-right">
+        @if ($post->user->id === Auth::id())
             <a href="{{ route('posts.edit', ['post' => $post]) }}">Edit</a>
-        </div>
-    @endif
+            {{ ' · ' }}
+        @endif
+        @if ($post->user->id === Auth::id() || Auth::user()->admin)
+            <form class="float-right ml-1" method="POST" action="{{ route('posts.destroy', ['post' => $post]) }}">
+                @csrf
+                @method('DELETE')
+                <input class="float-right bg-white cursor-pointer" type="submit" value="Delete">
+            </form>
+        @endif
+    </div>
     @if ($post->parent_post_id)
         <p class="pb-2">Replying to <a href="{{ route('users.show', ['user' => $post->parentPost->user]) }}">
             {{ "@" . $post->parentPost->user->username }}</a></p>
