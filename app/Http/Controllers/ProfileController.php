@@ -40,7 +40,7 @@ class ProfileController extends Controller
             'websiteUrl' => 'nullable|url|max:100'
         ]);
 
-        if ($request->hasFile('profileImage') && $request->file('profileImage')->isValid()) {
+        if ($request->hasFile('profileImage') && !$request->file('profileImage')->isValid()) {
             abort(500, 'An error occurred when uploading profile image');
         }
 
