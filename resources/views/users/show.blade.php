@@ -9,7 +9,7 @@
                     alt="{{ $user->profile->display_name }}'s Profile Picture">
 
                 <div class="p-4">
-                    @if (Auth::id() == $user->id)
+                    @if (Auth::id() === $user->id)
                         <a href="{{ route('users.profile.edit', ['user' => $user]) }}">
                             <button class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                                 Edit Profile

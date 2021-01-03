@@ -1,5 +1,5 @@
 <x-box>
-    @if ($post->user->id == Auth::id())
+    @if ($post->user->id === Auth::id())
         <div class="float-right">
             <a href="{{ route('posts.edit', ['post' => $post]) }}">Edit</a>
         </div>

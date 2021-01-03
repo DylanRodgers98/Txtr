@@ -1,7 +1,9 @@
 @section('title', "People following " . $user->profile->display_name . " (@" . $user->username . ")")
 
 <x-app-layout>
-    @foreach ($user->followers as $follower)
-        <p>{{ $follower->username }}</p>
-    @endforeach
+    <div class="py-1">
+        @foreach ($user->followers as $follower)
+            <x-user-summary :user="$follower"/>
+        @endforeach
+    </div>
 </x-app-layout>
