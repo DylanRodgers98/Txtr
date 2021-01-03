@@ -4,7 +4,7 @@
             authUserId: {
                 type: Number
             },
-            textElement: {
+            notificationCountElementsName: {
                 type: String
             },
             numUnreadNotifications: {
@@ -13,7 +13,7 @@
         },
         methods: {
             updateNumUnreadNotifications: function (numUnreadNotifications) {
-                document.getElementsByName(this.textElement).forEach(elem => {
+                document.getElementsByName(this.notificationCountElementsName).forEach(elem => {
                     elem.innerHTML = numUnreadNotifications;
                 });
             }

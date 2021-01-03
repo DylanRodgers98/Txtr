@@ -18,7 +18,7 @@
                     @else
                         <follow-button :profile-user-id="{{ $user->id }}"
                             :auth-user-id="{{ Auth::id() }}"
-                            follower-count-element="followerCount">
+                            follower-count-element-id="followerCount">
                         </follow-button>
                     @endif
 

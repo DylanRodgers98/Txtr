@@ -14,7 +14,7 @@
             authUserId: {
                 type: Number
             },
-            followerCountElement: {
+            followerCountElementId: {
                 type: String
             }
         },
@@ -34,7 +34,7 @@
                 axios.post(`/api/users/${this.authUserId}/${followOrUnfollow}/${this.profileUserId}`)
                     .then(res => {
                         this.isFollowing = res.data.isFollowing
-                        document.getElementById(this.followerCountElement).innerHTML = res.data.numberOfFollowers;
+                        document.getElementById(this.followerCountElementId).innerHTML = res.data.numberOfFollowers;
                     })
                     .catch(err => console.error(err));
             }

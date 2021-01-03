@@ -8,7 +8,7 @@
             maxChars: {
                 type: Number
             },
-            textElement: {
+            charCountElementId: {
                 type: String
             }
         },
@@ -19,7 +19,7 @@
         },
         methods: {
             updateCharCount: function () {
-                const currentChars = document.getElementById(this.textElement).value.length;
+                const currentChars = document.getElementById(this.charCountElementId).value.length;
                 this.charsRemaining = this.maxChars - currentChars;
             }
         },

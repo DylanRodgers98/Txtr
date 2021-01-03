@@ -28,9 +28,9 @@
             {{ "Reply " . $post->replies->count() }}
         </a>
         {{ " · " }}
-        <post-likes :number-of-likes="{{ $post->likedBy->count() }}"
+        <like-button :number-of-likes="{{ $post->likedBy->count() }}"
             :post-id="{{ $post->id }}" :auth-user-id="{{ Auth::id() }}">
-        </post-likes>
+        </like-button>
     </div>
     @if ($post->image)
         <div class="pt-2">

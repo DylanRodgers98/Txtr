@@ -30,10 +30,11 @@ window.Echo = new Echo({
 /**
  * Vue
  */
+
 window.Vue = require('vue');
 
-Vue.component('character-count', require('./components/CharacterCount.vue').default);
-Vue.component('post-likes', require('./components/PostLikes.vue').default);
+Vue.component('character-count-updater', require('./components/CharacterCountUpdater.vue').default);
+Vue.component('like-button', require('./components/LikeButton.vue').default);
 Vue.component('follow-button', require('./components/FollowButton.vue').default);
 Vue.component('notification-count-updater', require('./components/NotificationCountUpdater.vue').default);
 
