@@ -109,16 +109,25 @@ class UserController extends Controller
     public function follow(User $user, User $userToFollow)
     {
         $userToFollow->followers()->attach($user->id);
+        $numberOfFollowers = $userToFollow->followers->count();
 
         // send notification to User being followed
         $userToFollow->notify(new NewFollower($user));
 
-        return response()->json(['isFollowing' => true]);
+        return response()->json([
+            'isFollowing' => true,
+            'numberOfFollowers' => $numberOfFollowers
+        ]);
     }
 
     public function unfollow(User $user, User $userToUnfollow)
     {
         $userToUnfollow->followers()->detach($user->id);
-        return response()->json(['isFollowing' => false]);
+        $numberOfFollowers = $userToUnfollow->followers->count();
+
+        return response()->json([
+            'isFollowing' => false,
+            'numberOfFollowers' => $numberOfFollowers
+        ]);
     }
 }

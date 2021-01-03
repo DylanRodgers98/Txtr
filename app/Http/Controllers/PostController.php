@@ -165,14 +165,14 @@ class PostController extends Controller
         // send notification to User who posted post
         $post->user->notify(new PostLiked($post, $user));
 
-        $numberOfLikes = $post->likedBy()->count();
+        $numberOfLikes = $post->likedBy->count();
         return response()->json(['numberOfLikes' => $numberOfLikes]);
     }
 
     public function dislike(Post $post, User $user)
     {
         $post->likedBy()->detach($user->id);
-        $numberOfLikes = $post->likedBy()->count();
+        $numberOfLikes = $post->likedBy->count();
         return response()->json(['numberOfLikes' => $numberOfLikes]);
     }
 

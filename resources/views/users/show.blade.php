@@ -16,7 +16,10 @@
                             </button>
                         </a>
                     @else
-                        <follow-button :profile-user-id="{{ $user->id }}" :auth-user-id="{{ Auth::id() }}"></follow-button>
+                        <follow-button :profile-user-id="{{ $user->id }}"
+                            :auth-user-id="{{ Auth::id() }}"
+                            follower-count-element="followerCount">
+                        </follow-button>
                     @endif
 
                     <div>
@@ -42,7 +45,7 @@
                         <b>{{ $user->following->count() }}</b> Following
                     </a>
                     <a href="{{ route('users.indexFollowers', ['user' => $user]) }}">
-                        <b>{{ $user->followers->count() }}</b> Followers
+                        <b id="followerCount">{{ $user->followers->count() }}</b> Followers
                     </a>
                 </div>
             </div>
