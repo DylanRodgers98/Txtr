@@ -16,12 +16,11 @@ class NotificationController extends Controller
      */
     public function index()
     {
-        $user = Auth::user();
-        $user->notifications->markAsRead();
-        $notifications = $user->notifications()->simplePaginate(10);
-
+        $notifications = Auth::user()->notifications()->simplePaginate(10);
         $displayableNotifications = [];
+
         foreach ($notifications as $notification) {
+            $unread = $notification->unread();
             switch ($notification->type) {
                 case "App\\Notifications\\NewFollower":
                     $follower = User::findOrFail($notification->data['follower_id']);
@@ -30,7 +29,8 @@ class NotificationController extends Controller
                     $heading = $followerProfile->display_name . ' followed you';
                     $timestamp = $notification->created_at;
                     $notificationUrl = route('users.show', ['user' => $follower]);
-                    $displayableNotifications[] = new DisplayableNotification($profileImageUrl, $heading, null, $timestamp, $notificationUrl);
+                    $displayableNotifications[] = new DisplayableNotification(
+                        $profileImageUrl, $heading, null, $timestamp, $notificationUrl, $unread);
                     break;
                 case "App\\Notifications\\PostHasNewReply":
                     $reply = Post::findOrFail($notification->data['reply_id']);
@@ -40,7 +40,8 @@ class NotificationController extends Controller
                     $subheading = $reply->body;
                     $timestamp = $notification->created_at;
                     $notificationUrl = route('posts.show', ['post' => $reply, '#post']);
-                    $displayableNotifications[] = new DisplayableNotification($profileImageUrl, $heading, $subheading, $timestamp, $notificationUrl);
+                    $displayableNotifications[] = new DisplayableNotification(
+                        $profileImageUrl, $heading, $subheading, $timestamp, $notificationUrl, $unread);
                     break;
                 case "App\\Notifications\\PostLiked":
                     $replyUserProfile = User::findOrFail($notification->data['user_id'])->profile;
@@ -50,14 +51,16 @@ class NotificationController extends Controller
                     $subheading = $post->body;
                     $timestamp = $notification->created_at;
                     $notificationUrl = route('posts.show', ['post' => $post, '#post']);
-                    $displayableNotifications[] = new DisplayableNotification($profileImageUrl, $heading, $subheading, $timestamp, $notificationUrl);
+                    $displayableNotifications[] = new DisplayableNotification(
+                        $profileImageUrl, $heading, $subheading, $timestamp, $notificationUrl, $unread);
                     break;
             }
+            $notification->markAsRead();
         }
 
         return view('notifications.index', [
-            'displayableNotifications' => $displayableNotifications,
-            'notifications' => $notifications
+            'notifications' => $displayableNotifications,
+            'paginationLinks' => $notifications->links()
         ]);
     }
 }

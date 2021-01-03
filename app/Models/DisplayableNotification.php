@@ -4,7 +4,7 @@ namespace App\Models;
 
 class DisplayableNotification
 {
-    public $profileImagePath;
+    public $notificationImageUrl;
 
     public $heading;
 
@@ -14,12 +14,15 @@ class DisplayableNotification
 
     public $notificationUrl;
 
-    public function __construct($profileImagePath, $heading, $subheading, $timestamp, $notificationUrl)
+    public $unread;
+
+    public function __construct($notificationImageUrl, $heading, $subheading, $timestamp, $notificationUrl, $unread)
     {
-        $this->profileImagePath = $profileImagePath;
+        $this->notificationImageUrl = $notificationImageUrl;
         $this->heading = $heading;
         $this->subheading = $subheading;
         $this->timestamp = $timestamp;
         $this->notificationUrl = $notificationUrl;
+        $this->unread = $unread;
     }
 }
