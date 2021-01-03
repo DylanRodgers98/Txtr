@@ -20,7 +20,7 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.index')">
                         {{ __('Notifications') }}
-                        <p id="numOfNotifications" class="bg-gray-500 text-white py-1 px-2 ml-2 my-2 rounded-full">0</p>
+                        <p name="numOfNotifications" class="bg-gray-500 text-white py-1 px-2 ml-2 my-2 rounded-full">0</p>
                     </x-nav-link>
                 </div>
             </div>
@@ -76,6 +76,12 @@
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Home') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('notifications.index')" :active="request()->routeIs('notifications.index')">
+                {{ __('Notifications') }}<span name="numOfNotifications" class="bg-gray-500 text-white py-1 px-2 ml-2 my-2 rounded-full">0</span>
             </x-responsive-nav-link>
         </div>
 

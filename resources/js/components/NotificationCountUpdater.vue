@@ -13,7 +13,9 @@
         },
         methods: {
             updateNumUnreadNotifications: function (numUnreadNotifications) {
-                document.getElementById(this.textElement).innerHTML = numUnreadNotifications;
+                document.getElementsByName(this.textElement).forEach(elem => {
+                    elem.innerHTML = numUnreadNotifications;
+                });
             }
         },
         mounted() {
