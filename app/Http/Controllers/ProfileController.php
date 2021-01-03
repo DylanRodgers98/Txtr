@@ -78,7 +78,7 @@ class ProfileController extends Controller
 
             // save new banner image
             $bannerImagePath = $request->image->store('/public/img');
-            $bannerImage = new Image(['url' => $bannerImagePath]);
+            $bannerImage = new Image(['url' => Storage::url($bannerImagePath)]);
             $user->profile->bannerImage()->save($bannerImage);
         }
 
@@ -91,7 +91,7 @@ class ProfileController extends Controller
 
             // save new profile image
             $profileImagePath = $request->image->store('/public/img');
-            $profileImage = new Image(['url' => $profileImagePath]);
+            $profileImage = new Image(['url' => Storage::url($profileImagePath)]);
             $user->profile->profileImage()->save($profileImage);
         }
 

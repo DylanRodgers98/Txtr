@@ -59,7 +59,7 @@ class PostController extends Controller
 
         if ($request->hasFile('image')) {
             $imagePath = $request->image->store('/public/img');
-            $image = new Image(['url' => $imagePath]);
+            $image = new Image(['url' => Storage::url($imagePath)]);
             $post->image()->save($image);
         }
 
@@ -132,7 +132,7 @@ class PostController extends Controller
 
             // save new image
             $imagePath = $request->image->store('/public/img');
-            $image = new Image(['url' => $imagePath]);
+            $image = new Image(['url' => Storage::url($imagePath)]);
             $post->image()->save($image);
         }
 
