@@ -21,6 +21,7 @@ class UserTableSeeder extends Seeder
         $user->email = "dylanirodgers@aol.com";
         $user->password = Hash::make("password123");
         $user->email_verified_at = now();
+        $user->admin = true;
         $user->save();
 
         $profile = new Profile();

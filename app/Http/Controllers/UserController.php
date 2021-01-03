@@ -9,6 +9,11 @@ use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(User::class, 'user');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -97,7 +102,18 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $deleted = $user->delete();
+
+        if ($deleted && Auth::id() === $user->id) {
+            Auth::logout();
+        }
+
+        if ($user->admin) {
+            return redirect()
+                ->route('users.index')
+                ->with('message', 'User deleted.');
+        }
+        return redirect()->route('home');
     }
 
     public function isFollowing(User $user, User $userToQuery)

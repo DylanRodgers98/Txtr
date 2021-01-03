@@ -18,9 +18,7 @@ class ProfileController extends Controller
      */
     public function edit(User $user)
     {
-        if (Auth::id() != $user->id) {
-            return abort(403, "You are not authorized to edit another user's profile");
-        }
+        $this->authorize('update', $user->profile);
         return view('profile.edit', ['user' => $user]);
     }
 

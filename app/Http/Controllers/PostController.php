@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Storage;
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->authorizeResource(Post::class, 'post');
+    }
 
     /**
      * Display a listing of the resource.
@@ -99,9 +103,6 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        if (Auth::id() != $post->user_id) {
-            return abort(403, "You are not authorized to edit other users' posts");
-        }
         return view('posts.edit', ['post' => $post]);
     }
 
