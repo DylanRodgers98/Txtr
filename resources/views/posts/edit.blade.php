@@ -1,6 +1,12 @@
 @section('title', 'Edit Post')
 
 <x-app-layout>
+    <x-page-title>
+        <div class="mx-6 my-4">
+            <b>Edit Post</b>
+        </div>
+    </x-page-title>
+
     <div class="py-1">
         <x-box>
             <form method="POST" action="{{ route('posts.update', ['post' => $post]) }}" enctype="multipart/form-data">

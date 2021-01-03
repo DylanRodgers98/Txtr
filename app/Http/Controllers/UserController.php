@@ -43,12 +43,22 @@ class UserController extends Controller
 
     public function indexFollowing(User $user)
     {
-        return view('users.indexFollowing', ['user' => $user]);
+        $following = $user->following()->paginate(10);
+
+        return view('users.indexFollowing', [
+            'user' => $user,
+            'following' => $following
+        ]);
     }
 
     public function indexFollowers(User $user)
     {
-        return view('users.indexFollowers', ['user' => $user]);
+        $followers = $user->followers()->paginate(10);
+
+        return view('users.indexFollowers', [
+            'user' => $user,
+            'followers' => $followers
+        ]);
     }
 
     /**
@@ -59,7 +69,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('users.edit', ['user' => $user]);
     }
 
     /**

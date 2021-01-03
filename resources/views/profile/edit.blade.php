@@ -1,6 +1,12 @@
 @section('title', 'Edit Profile')
 
 <x-app-layout>
+    <x-page-title>
+        <div class="mx-6 my-4">
+            <b>Edit Profile</b>
+        </div>
+    </x-page-title>
+
     <div class="py-1">
         <x-box>
             <form method="POST" action="{{ route('users.profile.update', ['user' => $user]) }}" enctype="multipart/form-data">
