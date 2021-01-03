@@ -24,7 +24,7 @@ class ProfileFactory extends Factory
     {
         return [
             'display_name' => $this->faker->name,
-            'bio' => FactoryHelpers::possiblyNull($this->faker->realText),
+            'bio' => FactoryHelpers::possiblyNull($this->faker->realText(140)),
             'location' => FactoryHelpers::possiblyNull($this->faker->city . ", " . $this->faker->country),
             'website_url' => FactoryHelpers::possiblyNull($this->faker->url)
         ];
