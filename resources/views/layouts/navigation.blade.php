@@ -45,6 +45,10 @@
                             {{ __('Profile') }}
                         </x-dropdown-link>
 
+                        <x-dropdown-link :href="route('users.edit', ['user' => Auth::user()])">
+                            {{ __('Settings') }}
+                        </x-dropdown-link>
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf
@@ -101,8 +105,12 @@
             </div>
 
             <div class="mt-3 space-y-1">
-                <x-responsive-nav-link :href="route('users.show', ['user' => Auth::user()])">
+                <x-responsive-nav-link :href="route('users.edit', ['user' => Auth::user()])">
                     {{ __('Profile') }}
+                </x-responsive-nav-link>
+
+                <x-responsive-nav-link :href="route('users.edit', ['user' => Auth::user()])">
+                    {{ __('Settings') }}
                 </x-responsive-nav-link>
 
                 <!-- Authentication -->

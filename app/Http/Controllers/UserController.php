@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Notifications\NewFollower;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -81,7 +82,31 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        if ($request['username'] === $user->username
+            && $request['email'] === $user->email
+            && !$request['password']) {
+            // if no new data has been input, redirect back to User's page
+            return redirect()->route('users.show', ['user' => $user]);
+        }
+
+        if ($request['username'] !== $user->username) {
+            $request->validate(['username' => 'string|max:50|unique:users']);
+            $user->username = $request->username;
+        }
+        if ($request['email'] !== $user->email) {
+            $request->validate(['email' => 'string|email|max:255|unique:users']);
+            $user->email = $request->email;
+        }
+        if ($request['password']) {
+            $request->validate(['password' => 'string|confirmed|min:8']);
+            $user->password = Hash::make($request->password);
+        }
+
+        $user->save();
+
+        return redirect()
+            ->route('users.show', ['user' => $user])
+            ->with('message', 'Settings updated.');
     }
 
     /**
