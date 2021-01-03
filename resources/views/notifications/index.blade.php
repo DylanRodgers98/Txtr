@@ -6,7 +6,7 @@
             <a href={{ $notification->notificationUrl }}>
                 <x-box>
                     <img src="{{ $notification->notificationImageUrl ?? "https://i.stack.imgur.com/l60Hf.png" }}"
-                        class="float-left mr-4 rounded-full h-16 w-16" alt="Notification Image">
+                        class="float-left mr-4 mb-6 rounded-full h-16 w-16" alt="Notification Image">
                     @if ($notification->unread) <b> @endif
                     <p>{{ $notification->heading }}</p>
                     @if ($notification->unread) </b> @endif

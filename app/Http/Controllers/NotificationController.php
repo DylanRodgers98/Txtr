@@ -20,14 +20,15 @@ class NotificationController extends Controller
         $displayableNotifications = [];
 
         foreach ($notifications as $notification) {
+            $timestamp = $notification->created_at;
             $unread = $notification->unread();
+
             switch ($notification->type) {
                 case "App\\Notifications\\NewFollower":
                     $follower = User::findOrFail($notification->data['follower_id']);
                     $followerProfile = $follower->profile;
                     $profileImageUrl = $followerProfile->profileImage->url ?? null;
                     $heading = $followerProfile->display_name . ' followed you';
-                    $timestamp = $notification->created_at;
                     $notificationUrl = route('users.show', ['user' => $follower]);
                     $displayableNotifications[] = new DisplayableNotification(
                         $profileImageUrl, $heading, null, $timestamp, $notificationUrl, $unread);
@@ -38,7 +39,6 @@ class NotificationController extends Controller
                     $profileImageUrl = $replyUserProfile->profileImage->url ?? null;
                     $heading = $replyUserProfile->display_name . ' replied to your post';
                     $subheading = $reply->body;
-                    $timestamp = $notification->created_at;
                     $notificationUrl = route('posts.show', ['post' => $reply, '#post']);
                     $displayableNotifications[] = new DisplayableNotification(
                         $profileImageUrl, $heading, $subheading, $timestamp, $notificationUrl, $unread);
@@ -49,14 +49,21 @@ class NotificationController extends Controller
                     $heading = $replyUserProfile->display_name . ' liked your post';
                     $post = Post::findOrFail($notification->data['post_id']);
                     $subheading = $post->body;
-                    $timestamp = $notification->created_at;
                     $notificationUrl = route('posts.show', ['post' => $post, '#post']);
                     $displayableNotifications[] = new DisplayableNotification(
                         $profileImageUrl, $heading, $subheading, $timestamp, $notificationUrl, $unread);
                     break;
+                case "App\\Notifications\\PostDeletedByAdmin":
+                    $profileImageUrl = User::findOrFail($notification->notifiable_id)
+                        ->profile->profileImage->url ?? null;
+                    $heading = "A post of yours was removed by our admin team.";
+                    $displayableNotifications[] = new DisplayableNotification(
+                        $profileImageUrl, $heading, null, $timestamp, null, $unread);
+                    break;
                 default:
                     throw new \Exception('Encountered unknown notification type: ' . $notification->type);
             }
+
             $notification->markAsRead();
         }
 

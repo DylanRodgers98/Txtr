@@ -6,6 +6,7 @@ use App\Models\Image;
 use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\User;
+use App\Notifications\PostDeletedByAdmin;
 use App\Notifications\PostHasNewReply;
 use App\Notifications\PostLiked;
 use Illuminate\Support\Facades\Auth;
@@ -163,6 +164,11 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         $post->delete();
+
+        if (Auth::user()->admin && Auth::id() !== $post->user_id) {
+            // if Post was deleted by an admin user, send notification to User who posted post
+            $post->user->notify(new PostDeletedByAdmin());
+        }
 
         return redirect()
             ->route('home')
