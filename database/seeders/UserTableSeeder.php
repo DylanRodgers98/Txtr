@@ -16,12 +16,26 @@ class UserTableSeeder extends Seeder
      */
     public function run()
     {
+        // seed admin user
+        $admin = new User();
+        $admin->admin = true;
+        $admin->username = "Admin";
+        $admin->email = "admin@admin.com";
+        $admin->password = Hash::make("admin123");
+        $admin->email_verified_at = now();
+        $admin->save();
+
+        $adminProfile = new Profile();
+        $adminProfile->user_id = $admin->id;
+        $adminProfile->display_name = "Admin";
+        $adminProfile->save();
+
+        // seed normal user
         $user = new User();
         $user->username = "DylanRodgers98";
         $user->email = "dylanirodgers@aol.com";
         $user->password = Hash::make("password123");
         $user->email_verified_at = now();
-        $user->admin = true;
         $user->save();
 
         $profile = new Profile();

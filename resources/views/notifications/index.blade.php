@@ -5,7 +5,7 @@
         @foreach ($notifications as $notification)
             <a href={{ $notification->notificationUrl }}>
                 <x-box>
-                    <img src="{{ $notification->notificationImageUrl ?? "https://i.stack.imgur.com/l60Hf.png" }}"
+                    <img src="{{ $notification->notificationImageUrl ?? env('DEFAULT_PROFILE_IMAGE_URL') }}"
                         class="float-left mr-4 mb-6 rounded-full h-16 w-16" alt="Notification Image">
                     @if ($notification->unread) <b> @endif
                     <p>{{ $notification->heading }}</p>

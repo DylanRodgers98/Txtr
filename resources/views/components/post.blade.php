@@ -17,7 +17,7 @@
             {{ "@" . $post->parentPost->user->username }}</a></p>
     @endif
     <a href="{{ route('users.show', ['user' => $post->user]) }}">
-        <img src="{{ $post->user->profile->profileImage->url ?? "https://i.stack.imgur.com/l60Hf.png" }}"
+        <img src="{{ $post->user->profile->profileImage->url ?? env('DEFAULT_PROFILE_IMAGE_URL') }}"
             class="float-left mr-4 rounded-full h-16 w-16"
             alt="{{ $post->user->profile->display_name }}'s Profile Picture">
         <b>{{ $post->user->profile->display_name ?? $post->user->username }}</b>

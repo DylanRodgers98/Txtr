@@ -3,7 +3,7 @@
 <x-app-layout>
     <div class="pb-1">
         <x-page-title>
-            <img src="{{ $user->profile->profileImage->url ?? "https://i.stack.imgur.com/l60Hf.png" }}"
+            <img src="{{ $user->profile->profileImage->url ?? env('DEFAULT_PROFILE_IMAGE_URL') }}"
                 class="h-64 w-64 p-4 rounded-full float-left"
                 alt="{{ $user->profile->display_name }}'s Profile Picture">
 

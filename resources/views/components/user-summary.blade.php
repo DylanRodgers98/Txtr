@@ -7,7 +7,7 @@
                 <input class="float-right bg-white cursor-pointer" type="submit" value="Delete">
             </form>
         @endif
-        <img src="{{ $user->profile->profileImage->url ?? "https://i.stack.imgur.com/l60Hf.png" }}"
+        <img src="{{ $user->profile->profileImage->url ?? env('DEFAULT_PROFILE_IMAGE_URL') }}"
             class="float-left rounded-full h-24 w-24 mb-6 mr-6"
             alt="{{ $user->profile->display_name }}'s Profile Picture">
         <div>
