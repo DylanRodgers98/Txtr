@@ -1,5 +1,5 @@
-<a href="{{ route('users.show', ['user' => $user]) }}">
-    <x-box>
+<x-box>
+    <a href="{{ route('users.show', ['user' => $user]) }}">
         @if (Auth::user()->admin)
             <form class="float-right ml-1" method="POST" action="{{ route('users.destroy', ['user' => $user]) }}">
                 @csrf
@@ -17,5 +17,12 @@
             <i>{{ '@' . $user->username }}</i>
         </div>
         <p>{{ $user->profile->bio }}</p>
-    </x-box>
-</a>
+    </a>
+    @if ($user->id !== Auth::id())
+        <div class="pt-2">
+            <follow-button :profile-user-id="{{ $user->id }}"
+                :auth-user-id="{{ Auth::id() }}">
+            </follow-button>
+        </div>
+    @endif
+</x-box>

@@ -15,10 +15,12 @@
                         </button>
                     </a>
                 @else
-                    <follow-button :profile-user-id="{{ $user->id }}"
-                        :auth-user-id="{{ Auth::id() }}"
-                        follower-count-element-id="followerCount">
-                    </follow-button>
+                    <div class="float-right">
+                        <follow-button :profile-user-id="{{ $user->id }}"
+                            :auth-user-id="{{ Auth::id() }}"
+                            follower-count-element-id="followerCount">
+                        </follow-button>
+                    </div>
                 @endif
 
                 <div>

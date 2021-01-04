@@ -1,12 +1,6 @@
-@section('title', 'Users')
+@section('title', 'Find People to Follow')
 
 <x-app-layout>
-    <x-page-title>
-        <div class="mx-6 my-4">
-            <b>Users</b>
-        </div>
-    </x-page-title>
-
     <div class="py-1">
         @foreach ($users as $user)
             <x-user-summary :user="$user"/>
