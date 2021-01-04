@@ -1,5 +1,5 @@
 <template>
-    <button v-on:click="followOrUnfollow" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+    <button v-on:click="followOrUnfollow" class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full">
         <p v-if="isFollowing">Unfollow</p>
         <p v-else>Follow</p>
     </button>

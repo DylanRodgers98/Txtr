@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="pb-2 float-right">
-                    <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
+                    <input class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
                         type="submit" value="Edit Settings">
                 </div>
             </form>
@@ -66,7 +66,7 @@
             <form method="POST" action="{{ route('users.destroy', ['user' => $user]) }}">
                 @csrf
                 @method('DELETE')
-                <input class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
+                <input class="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded-full cursor-pointer"
                     type="submit" value="Delete Account">
             </form>
         </x-box>

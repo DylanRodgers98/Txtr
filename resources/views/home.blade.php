@@ -7,7 +7,7 @@
                 @csrf
                 <input type="hidden" name="userId" value="{{ $user->id }}">
                 <input id="postBody" class="w-full rounded-full" type="text" name="postBody"
-                    value="{{ old('postBody') }}" placeholder="What's happening?"
+                    value="{{ old('postBody') }}" placeholder="What's happening?" aria-label="Post Body"
                     @keyup='$refs.chars.updateCharCount()' @change='$refs.chars.updateCharCount()'>
                 <div class="float-left my-4">
                     <label for="image">Add an image:</label>
@@ -18,7 +18,7 @@
                         char-count-element-id="postBody"
                         :max-chars="140">
                     </character-count-updater>
-                    <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
+                    <input class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
                         type="submit" value="Post">
                 </div>
             </form>

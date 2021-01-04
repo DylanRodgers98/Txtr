@@ -13,13 +13,13 @@
                 @csrf
                 @method('PUT')
                 <input id="postBody" class="w-full rounded-full" type="text" name="postBody"
-                    value="{{ $post->body }}" placeholder="What's happening?"
+                    value="{{ $post->body }}" placeholder="What's happening?" aria-label="Post Body"
                     @keyup='$refs.chars.updateCharCount()' @change='$refs.chars.updateCharCount()'>
 
                 @if ($post->image)
                     <div class="pt-2">
-                        <a href="{{ Storage::url($post->image->url) }}">
-                            <img src="{{ Storage::url($post->image->url) }}" class="h-auto w-96 mx-auto"
+                        <a href="{{ $post->image->url }}">
+                            <img src="{{ $post->image->url }}" class="h-auto w-96 mx-auto"
                                 alt="{{ "Image attached to @" . $post->user->username . "'s post" }}">
                         </a>
                     </div>
@@ -32,7 +32,7 @@
                     <input type="file" id="image" name="image" accept="image/*">
                 </div>
 
-                <input class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
+                <input class="float-right bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
                     type="submit" value="Edit Post">
             </form>
 

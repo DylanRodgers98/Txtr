@@ -12,7 +12,7 @@
                     @csrf
                     <input type="hidden" name="userId" value="{{ Auth::id() }}">
                     <input type="hidden" name="parentPostId" value="{{ $post->id }}">
-                    <input id="postBody" class="w-full rounded-full" type="text" name="postBody"
+                    <input id="postBody" class="w-full rounded-full" type="text" name="postBody" aria-label="Post Body"
                         placeholder="{{ "Reply to @" . $post->user->username . "..." }}" value="{{ old('postBody') }}"
                         @keyup='$refs.chars.updateCharCount()' @change='$refs.chars.updateCharCount()'>
                     <div class="float-left my-4">
@@ -24,7 +24,7 @@
                             char-count-element-id="postBody"
                             :max-chars="140">
                         </character-count-updater>
-                        <input class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
+                        <input class="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 ml-2 my-2 rounded-full cursor-pointer"
                             type="submit" value="Reply">
                     </div>
                 </form>

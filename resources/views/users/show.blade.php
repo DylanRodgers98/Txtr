@@ -10,7 +10,7 @@
             <div class="p-4">
                 @if (Auth::id() === $user->id)
                     <a href="{{ route('users.profile.edit', ['user' => $user]) }}">
-                        <button class="float-right bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        <button class="float-right bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded-full">
                             Edit Profile
                         </button>
                     </a>
