@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\Route;
 /**
  * Register NewsApi
  */
-app()->singleton('newsApi', function ($app) {
+app()->singleton(NewsApi::class, function ($app) {
     return new NewsApi();
 });
 
