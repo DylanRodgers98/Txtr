@@ -1,6 +1,14 @@
 <?php
 
+use App\NewsApi;
 use Illuminate\Support\Facades\Route;
+
+/**
+ * Register NewsApi
+ */
+app()->singleton('newsApi', function ($app) {
+    return new NewsApi();
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -62,4 +70,9 @@ Route::middleware('auth')->group(function () {
      * Notifications routes
      */
     Route::get('notifications', 'NotificationController@index')->name('notifications.index');
+
+    /**
+     * News routes
+     */
+    Route::get('news', 'NewsController@index')->name('news.index');
 });
